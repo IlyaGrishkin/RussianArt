@@ -7,6 +7,7 @@ import axios from 'axios'
 import { motion } from "motion/react"
 import './TestScreen.css'
 import { API_URLS, getTest, getTestResult, URLS } from "../Utils/constants";
+import AppNavbar from "../Navbar/Navbar";
 
 
 
@@ -152,48 +153,51 @@ function TestScreen(props) {
 
     {
         return (
-            <div className='container-fluid'>
-                <div className="row d-flex justify-content-center">
-                    <div className='col-5 col-sm-4 col-md px-0 px-sm-4'>
-                        <h3>Навигация</h3>
-                        <TestNavbar questions_quantity={questionQuantity} completed={getCompleted(userAnswers)} />
-                    </div>
+            <>
+                <AppNavbar/>
+                <div className='container-fluid'>
+                    <div className="row d-flex justify-content-center">
+                        <div className='col-5 col-sm-4 col-md px-0 px-sm-4'>
+                            <h3>Навигация</h3>
+                            <TestNavbar questions_quantity={questionQuantity} completed={getCompleted(userAnswers)} />
+                        </div>
 
-                    <div className="col-5 col-sm-4 col-md px-0 px-sm-4 order-md-2">
-                        <div className="timer-wrap" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
-                            <Timer duration={testDuration} onTimeout={() => handleTimeout(testID)} finishTest={finishTest}/>
-                            <div className="timer-info" style={{ display: timerInfo ? 'block' : 'none' }}>
-                                <p>По окончании таймера <br /> Ваши ответы отправятся автоматически</p>
+                        <div className="col-5 col-sm-4 col-md px-0 px-sm-4 order-md-2">
+                            <div className="timer-wrap" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
+                                <Timer duration={testDuration} onTimeout={() => handleTimeout(testID)} finishTest={finishTest}/>
+                                <div className="timer-info" style={{ display: timerInfo ? 'block' : 'none' }}>
+                                    <p>По окончании таймера <br /> Ваши ответы отправятся автоматически</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <motion.div
-                        initial={
-                            {
-                                opacity: 0
+                        <motion.div
+                            initial={
+                                {
+                                    opacity: 0
+                                }
                             }
-                        }
-                        animate={
-                            {
-                                opacity: 1,
+                            animate={
+                                {
+                                    opacity: 1,
+                                }}
+                            transition={{
+                                duration: 0.7,
+                                ease: "linear"
                             }}
-                        transition={{
-                            duration: 0.7,
-                            ease: "linear"
-                        }}
-                        className='col-12 col-sm-8 order-md-1 col-md-6 col-lg-5 d-flex justify-content-center'>
-                        <AppCard width={90} id={id} testID={testID} question={question} questionsQuantity={questionQuantity}
-                            variants={answers} picture={pictureURL}
-                            userAnswers={userAnswers} active={active} getActual={getActualAnswers} 
-                            setActive={activeSetter} setAnswers={userAnswersSetter}
-                            finishTest={finishTest}/>
-                    </motion.div>
+                            className='col-12 col-sm-8 order-md-1 col-md-6 col-lg-5 d-flex justify-content-center'>
+                            <AppCard width={90} id={id} testID={testID} question={question} questionsQuantity={questionQuantity}
+                                variants={answers} picture={pictureURL}
+                                userAnswers={userAnswers} active={active} getActual={getActualAnswers} 
+                                setActive={activeSetter} setAnswers={userAnswersSetter}
+                                finishTest={finishTest}/>
+                        </motion.div>
+
+                    </div>
+
+
 
                 </div>
-
-
-
-            </div>
+            </>
         )
 
 

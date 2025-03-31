@@ -12,6 +12,8 @@ import BasicPagination from '../MuiPagination/MuiPagination';
 import testImage from './test-img.png'
 import timeImage from './time-svgrepo-com (2).svg'
 import quantityImg from './pen-new-square-svgrepo-com.svg'
+import AppNavbar from '../Navbar/Navbar';
+import { Footer } from '../Footer/Footer';
 
 export function Home() {
     if (!JSON.parse(localStorage.getItem("filterActive"))) {
@@ -86,7 +88,7 @@ export function Home() {
     const [readyToStart, setReadyToStart] = useState(null)
 
     //pagination
-    const MAX_CARDS = 3
+    const MAX_CARDS = 4
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
         setPage(value);
@@ -310,7 +312,7 @@ export function Home() {
 
     const noneStyle = 'd-none'
 
-    const normalStyle = "col-lg-6 col-xl-4 d-flex justify-content-center my-3"
+    const normalStyle = "col-lg-6 col-xxl-4 d-flex justify-content-center my-3"
 
     //handleTestStart(test.id)
 
@@ -320,7 +322,7 @@ export function Home() {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-12 d-flex justify-content-center">
-                            <h1>Тесты</h1>
+                            <h1 className='fw-bold'>Тесты</h1>
                         </div>
                     </div>
                     <div className="row mb-5">
@@ -443,137 +445,144 @@ export function Home() {
 
     else {
         return (
-            <div className="home-wrapper-large">
-                <div className="container-fluid p-0 m-0 test-img-wrap">
-                    <img src={testImage} className='test-img p-0 m-0 w-100' />
-                    <div className='overlay-text'>
-                        <h1 className='text-center'>Тесты</h1>
-                        <p className='fs-4 text-grey'>Решайте наши разнообразные тесты и становитесь эрудированнее</p>
-                    </div>
-                    
-                </div>
-                <div className="container-fluid h-75">
-
-                    <div className="row ps-3">
-                        <div className="col-3 col-xl-2">
-                            <div className='sidebar'>
-
-
-                                <div className='topic-wrapper'>
-                                    <h4>Тема</h4>
-                                    <ul className='filter-ul'>
-                                        {topics.TOPICS.map(t => <li className='filter-item'>
-                                            <ConfigProvider
-                                                theme={{
-                                                    token: {
-                                                        colorPrimary: '00AE%B' // your color
-                                                    }
-                                                }}
-                                            >
-                                                <Checkbox className="checkbox" checked={checkedTopic[t]} onChange={() => handleChangeTopic(t)} inputProps={{ 'aria-label': 'controlled' }} />
-
-                                            </ConfigProvider>
-                                            {' ' + t} </li>)}
-                                    </ul>
-                                </div>
-                                <div className='duration-wrapper'>
-                                    <h4>Длительность</h4>
-                                    <ul className='filter-ul'>
-                                        {testDurations.map(t => <li className='filter-item'>
-                                            <ConfigProvider
-                                                theme={{
-                                                    token: {
-                                                        colorPrimary: '00AE%B' // your color
-                                                    }
-                                                }}
-                                            >
-                                                <Checkbox className="checkbox" checked={checkedDuration[t]} onChange={() => handleChangeDuration(t)} inputProps={{ 'aria-label': 'controlled' }} />
-                                            </ConfigProvider> {t} </li>)}
-                                            
-                                    </ul>
-                                </div>
-                                <div className='number-wrapper'>
-                                    <h4>Количество вопросов</h4>
-                                    <ul className='filter-ul'>
-                                        {questionsNumber.map(n => <li className='filter-item'>
-                                            <ConfigProvider
-                                                theme={{
-                                                    token: {
-                                                        colorPrimary: '00AE%B' // your color
-                                                    }
-                                                }}
-                                            >
-                                            <Checkbox className="checkbox" checked={checkedNumber[n]} onChange={() => handleChangeNumber(n)} inputProps={{ 'aria-label': 'controlled' }} />
-                                                </ConfigProvider> {n} </li>)}
-                                    </ul>
-                                </div>
-
-                            </div>
+            <>
+                <div className='border-start border-end'>
+                    <AppNavbar/>
+                    <div className="home-wrapper-large">
+                    <div className="container-fluid p-0 m-0 test-img-wrap">
+                        <img src={testImage} className='test-img p-0 m-0 w-100' />
+                        <div className='overlay-text'>
+                            <h1 className='text-center fw-bold'>Тесты</h1>
+                            <p className='fs-4 text-grey text-center pt-2'>Решайте наши разнообразные тесты <br/> и становитесь эрудированнее</p>
                         </div>
-                        <div className="col-9 col-xl-10">
-                            <div className="row">
-                                {shownTestList.length > 0 ? shownTestList.map((test) =>
-                                    <motion.div className={normalStyle}
-                                        initial={
-                                            {
-                                                y: 100,
-                                                opacity: 0
+                        
+                    </div>
+                    <div className="container-fluid h-75">
+
+                        <div className="row ps-3">
+                            <div className="col-3 col-xl-2">
+                                <div className='sidebar'>
+
+
+                                    <div className='topic-wrapper'>
+                                        <h4>Тема</h4>
+                                        <ul className='filter-ul'>
+                                            {topics.TOPICS.map(t => <li className='filter-item'>
+                                                <ConfigProvider
+                                                    theme={{
+                                                        token: {
+                                                            colorPrimary: '00AE%B' // your color
+                                                        }
+                                                    }}
+                                                >
+                                                    <Checkbox className="checkbox" checked={checkedTopic[t]} onChange={() => handleChangeTopic(t)} inputProps={{ 'aria-label': 'controlled' }} />
+
+                                                </ConfigProvider>
+                                                {' ' + t} </li>)}
+                                        </ul>
+                                    </div>
+                                    <div className='duration-wrapper'>
+                                        <h4>Длительность</h4>
+                                        <ul className='filter-ul'>
+                                            {testDurations.map(t => <li className='filter-item'>
+                                                <ConfigProvider
+                                                    theme={{
+                                                        token: {
+                                                            colorPrimary: '00AE%B' // your color
+                                                        }
+                                                    }}
+                                                >
+                                                    <Checkbox className="checkbox" checked={checkedDuration[t]} onChange={() => handleChangeDuration(t)} inputProps={{ 'aria-label': 'controlled' }} />
+                                                </ConfigProvider> {t} </li>)}
+                                                
+                                        </ul>
+                                    </div>
+                                    <div className='number-wrapper'>
+                                        <h4>Количество вопросов</h4>
+                                        <ul className='filter-ul'>
+                                            {questionsNumber.map(n => <li className='filter-item'>
+                                                <ConfigProvider
+                                                    theme={{
+                                                        token: {
+                                                            colorPrimary: '00AE%B' // your color
+                                                        }
+                                                    }}
+                                                >
+                                                <Checkbox className="checkbox" checked={checkedNumber[n]} onChange={() => handleChangeNumber(n)} inputProps={{ 'aria-label': 'controlled' }} />
+                                                    </ConfigProvider> {n} </li>)}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="col-9 col-xl-10">
+                                <div className="row">
+                                    {shownTestList.length > 0 ? shownTestList.map((test) =>
+                                        <motion.div className={normalStyle}
+                                            initial={
+                                                {
+                                                    y: 100,
+                                                    opacity: 0
+                                                }
                                             }
-                                        }
-                                        animate={
-                                            {
-                                                y: 0,
-                                                opacity: 1,
-                                                transition: { duration: 0.5 }
+                                            animate={
+                                                {
+                                                    y: 0,
+                                                    opacity: 1,
+                                                    transition: { duration: 0.5 }
+                                                }}
+                                            whileHover={{
+                                                y: -3,
+                                                transition: { duration: 0.1 }
                                             }}
-                                        whileHover={{
-                                            y: -3,
-                                            transition: { duration: 0.1 }
-                                        }}
-                                    >
-                                        <Card className="card mb-4 home-card-wrap p-0" style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 480 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
-                                            <Card.Img variant="top" src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
-                                            <Card.Body>
-                                                <Card.Title className='card-title'>{test.title}</Card.Title>
-                                                <Card.Text>
-                                                    {test.description}
-                                                </Card.Text>
-                                                <Card.Text>
-                                                    <div className='timeInfo d-flex'>
-                                                        <p>Время: {test.work_time} мин</p>
-                                                        <img src={timeImage} width={20 + 'px'} className='pb-3 mx-2'/>
-                                                    </div>
+                                        >
+                                            <Card className="card mb-4 home-card-wrap p-0" style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 410 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
+                                                <Card.Img variant="top" style={{height: "200px"}} src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
+                                                <Card.Body>
+                                                    <Card.Title className='card-title'>{test.title}</Card.Title>
+                                                    <Card.Text style={{overflow: "hidden"}}>
+                                                        {test.description}
+                                                    </Card.Text>
+                                                    <Card.Text>
+                                                        <div className='timeInfo d-flex'>
+                                                            <p>Время: {test.work_time} мин</p>
+                                                            <img src={timeImage} width={20 + 'px'} className='pb-3 mx-2'/>
+                                                        </div>
 
-                                                    <div className='questionsInfo d-flex'>
-                                                        <p>Количество вопросов: {test.question_count}</p>
-                                                        <img src={quantityImg} width={20 + 'px'} className='pb-3 mx-2'/>
-                                                    </div>
+                                                        <div className='questionsInfo d-flex'>
+                                                            <p>Количество вопросов: {test.question_count}</p>
+                                                            <img src={quantityImg} width={20 + 'px'} className='pb-3 mx-2'/>
+                                                        </div>
 
 
-                                                </Card.Text>
-                                            </Card.Body>
+                                                    </Card.Text>
+                                                </Card.Body>
 
-                                        </Card>
+                                            </Card>
 
 
-                                        <MyVerticallyCenteredModal
-                                            show={modalShow}
-                                            onHide={() => setModalShow(false)}
-                                            testName={title}
-                                            onTestStart={() => handleTestStart(readyToStart)}
-                                        />
-                                    </motion.div>
+                                            <MyVerticallyCenteredModal
+                                                show={modalShow}
+                                                onHide={() => setModalShow(false)}
+                                                testName={title}
+                                                onTestStart={() => handleTestStart(readyToStart)}
+                                            />
+                                        </motion.div>
 
-                                ) : <h4>{onUnfound}</h4>}
+                                    ) : <h4>{onUnfound}</h4>}
+                                </div>
+
                             </div>
-
                         </div>
                     </div>
+                    <div className='mt-5 pb-4 d-flex justify-content-center'>
+                        <BasicPagination totalCards={testList.length} maxCards={MAX_CARDS} page={page} handleChange={handleChange} />
+                    </div>
+                    </div>
                 </div>
-                <div className='my-5 d-flex justify-content-center'>
-                    <BasicPagination totalCards={testList.length} maxCards={MAX_CARDS} page={page} handleChange={handleChange} />
-                </div>
-            </div>
+                <Footer/>
+            </>
+            
         )
     }
 

@@ -82,7 +82,7 @@ function AppCard(props) {
     
 
     return (
-        <Card style={{width: matches ? '100%' : '90%' }} className='my-3 home-card-wrap'>
+        <Card style={{width: matches ? '100%' : '90%' }} className='my-3 '>
             <div>
                 <Card.Img variant="top" src={props.picture ? SERVER_HOST + props.picture : "https://avatars.mds.yandex.net/i?id=dc7cbd3877e56749ab41a0fcc5145434_l-5231880-images-thumbs&n=13"} />
                 <Card.Body>

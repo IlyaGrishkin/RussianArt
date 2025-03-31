@@ -110,7 +110,7 @@ function AppNavbar() {
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
                   <AnimatedLink href="/" text={"Главная"} styles={`${matches ? bigScreenStyles : smallScreenStyles}`}/>
-                  <AnimatedLink href="/" text={"Тесты"} styles={`${matches ? bigScreenStyles : smallScreenStyles}`}/>
+                  <AnimatedLink href="/tests/" text={"Тесты"} styles={`${matches ? bigScreenStyles : smallScreenStyles}`}/>
                   <AnimatedLink href="/guide-cards/" text={"Гайд-карточки"} styles={`${matches ? bigScreenStyles : smallScreenStyles}`}/>
                   <AnimatedLink href="/about/" text={"О проекте"} styles={`${matches ? bigScreenStyles : smallScreenStyles}`}/>
                   <span class="border-start ms-3" style={{width: '2px'}}></span>
