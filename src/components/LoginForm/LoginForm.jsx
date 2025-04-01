@@ -60,6 +60,8 @@ function LoginForm(props) {
             })
             .catch(resp => {
                 console.log(resp)
+                alert("Произошла ошибка. Проверьте корректность почты и попробуйте еще раз.")
+                setLoading(false)
             })
             
             
@@ -112,7 +114,7 @@ function LoginForm(props) {
                         <input className="form-control my-2" value={email} onChange={e => handleChange(e)} onBlur={e => handleBlur(e)} id="email"
                             type="email" name="emailAddress" placeholder='Ваша почта' />
                         {(emailError && emailDirty) ? <div style={{ color: "red" }}>{emailError}</div> : <></>}
-                        <button type="submit" className={formValid ? 'btn btn-success w-100 my-2' : 'btn btn-success disabled w-100 my-2'}>Отправить</button>
+                        <button type="submit" className={formValid ? 'btn btn-dark w-100 my-2' : 'btn btn-dark disabled w-100 my-2'}>Отправить</button>
                     </form>
                     <div className='create-account'>
                         <p>Нет аккаунта? <a href="/signup/">Зарегистрироваться</a></p>

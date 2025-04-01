@@ -107,3 +107,7 @@ export function getTest(testID){
 export function nextQuestion(testID, id) {
     return `http://localhost:3000/card/${testID}/${parseInt(id) + 1}/`
 }
+
+export function goToQuestion(testID, id) {
+    return `http://localhost:3000/card/${testID}/${parseInt(id)}/`
+}

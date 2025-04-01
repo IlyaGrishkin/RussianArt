@@ -28,14 +28,7 @@ h2 {
     color: #c4c4c2d4;
 }
 
-.login-form button{
-    background-color: #d19fe8;
-    border: none;
-}
-
-.login-form button:hover{
-    background-color: #e6c1f7;
-}
+ 
 
 .wrapper {
     display: flex;

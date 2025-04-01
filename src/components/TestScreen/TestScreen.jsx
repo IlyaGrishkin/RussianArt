@@ -6,8 +6,9 @@ import { useEffect, useState } from "react";
 import axios from 'axios'
 import { motion } from "motion/react"
 import './TestScreen.css'
-import { API_URLS, getTest, getTestResult, URLS } from "../Utils/constants";
+import { API_URLS, getTest, getTestResult, goToQuestion, URLS } from "../Utils/constants";
 import AppNavbar from "../Navbar/Navbar";
+import PaginationTestScreen from "../PaginationTestScreen/PaginationTestScreen";
 
 
 
@@ -35,6 +36,8 @@ function TestScreen(props) {
 
     const [userAnswers, setUserAnswers] = useState({})
     const [active, setActive] = useState([]);
+
+    const [defaultPage, setDefaultPage] = useState(JSON.parse(localStorage.getItem("defaultPage")) ? JSON.parse(localStorage.getItem("defaultPage")) : 1)
 
     const userAnswersSetter = (newAns) => {
         setUserAnswers(newAns)
@@ -114,14 +117,6 @@ function TestScreen(props) {
     }
 
 
-    function handleTimeout(testId) {
-        localStorage.removeItem("testTime")
-        localStorage.removeItem("answers")
-        localStorage.removeItem("testRunning");
-        localStorage.removeItem("testData")
-        window.location.href =  getTestResult()
-
-    }
 
     function finishTest() {
         localStorage.removeItem("testRunning");
@@ -150,6 +145,14 @@ function TestScreen(props) {
             
     }
 
+    //<TestNavbar questions_quantity={questionQuantity} completed={getCompleted(userAnswers)} />
+    //pagination
+
+    const handleChange = (event, value) => {
+        localStorage.setItem("defaultPage", JSON.stringify(value))
+        window.location.href = goToQuestion(testID, value)
+    };
+
 
     {
         return (
@@ -157,14 +160,15 @@ function TestScreen(props) {
                 <AppNavbar/>
                 <div className='container-fluid'>
                     <div className="row d-flex justify-content-center">
-                        <div className='col-5 col-sm-4 col-md px-0 px-sm-4'>
+                        <div className='col-5 col-sm-4 col-md px-0'>
                             <h3>Навигация</h3>
-                            <TestNavbar questions_quantity={questionQuantity} completed={getCompleted(userAnswers)} />
+                            <PaginationTestScreen count={questionQuantity} completed={getCompleted(userAnswers)}
+                             handleChange={handleChange} defaultPage={defaultPage}/>
                         </div>
 
-                        <div className="col-5 col-sm-4 col-md px-0 px-sm-4 order-md-2">
+                        <div className="col-5 col-sm-4 col-md px-0 order-md-2">
                             <div className="timer-wrap" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
-                                <Timer duration={testDuration} onTimeout={() => handleTimeout(testID)} finishTest={finishTest}/>
+                                <Timer duration={testDuration} onTimeout={() => finishTest()} finishTest={finishTest}/>
                                 <div className="timer-info" style={{ display: timerInfo ? 'block' : 'none' }}>
                                     <p>По окончании таймера <br /> Ваши ответы отправятся автоматически</p>
                                 </div>
