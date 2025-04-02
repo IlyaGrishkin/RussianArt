@@ -8,15 +8,15 @@ import { motion } from "motion/react"
 import './TestScreen.css'
 import { API_URLS, getTest, getTestResult, goToQuestion, URLS } from "../Utils/constants";
 import AppNavbar from "../Navbar/Navbar";
-import PaginationTestScreen from "../PaginationTestScreen/PaginationTestScreen";
-
+import navigationImage from './navigation1.svg'
+import { styled } from "@mui/material";
 
 
 
 
 
 function TestScreen(props) {
-    
+
     const { id } = useParams()
     const { testID } = useParams()
     const [data, setData] = useState([])
@@ -38,6 +38,9 @@ function TestScreen(props) {
     const [active, setActive] = useState([]);
 
     const [defaultPage, setDefaultPage] = useState(JSON.parse(localStorage.getItem("defaultPage")) ? JSON.parse(localStorage.getItem("defaultPage")) : 1)
+
+    const [showNavigation, setShowNavigation] = useState(false)
+
 
     const userAnswersSetter = (newAns) => {
         setUserAnswers(newAns)
@@ -64,9 +67,9 @@ function TestScreen(props) {
             setPictureURL(serverData.data.items[id - 1].picture)
             localStorage.setItem("serverData", JSON.stringify(serverData))
         })
-        .catch(resp => {
-            console.log(resp)
-        })
+            .catch(resp => {
+                console.log(resp)
+            })
     }
 
     async function getActualAnswers() {
@@ -118,7 +121,7 @@ function TestScreen(props) {
 
 
 
-    function finishTest() {
+    async function finishTest() {
         localStorage.removeItem("testRunning");
         localStorage.removeItem("serverData")
 
@@ -129,7 +132,7 @@ function TestScreen(props) {
                 "Auth-Token": JSON.parse(localStorage.getItem("accessToken"))
             }
         }
-        axios.post(apiUrl,
+        await axios.post(apiUrl,
             {
             },
             config
@@ -142,8 +145,41 @@ function TestScreen(props) {
             .catch(resp => {
                 console.log(resp)
             })
-            
+
     }
+
+    async function sendAnswers() {
+        const answers = userAnswers
+        console.log(answers)
+        const apiUrl = API_URLS.UPDATE_TEST;
+        let config = {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Auth-Token": JSON.parse(localStorage.getItem("accessToken"))
+            }
+        }
+        await axios.post(apiUrl,
+            {
+                test_id: testID,
+                user_answers: answers
+            },
+            config
+        )
+
+            .then((resp) => {
+                const serverData = resp.data;
+                console.log(serverData);
+                //localStorage.setItem("timeStart", JSON.stringify(parseInt((new Date(serverData.data.created_at).getTime() / 1000).toFixed(0))))
+            })
+            .catch((resp) => {
+                console.log(resp)
+                if (resp.response.status == 400) {
+                    window.location.href = URLS.TEST_RESULT
+                }
+            }
+            )
+    }
+
 
     //<TestNavbar questions_quantity={questionQuantity} completed={getCompleted(userAnswers)} />
     //pagination
@@ -157,44 +193,52 @@ function TestScreen(props) {
     {
         return (
             <>
-                <AppNavbar/>
+                <AppNavbar />
                 <div className='container-fluid'>
                     <div className="row d-flex justify-content-center">
                         <div className='col-5 col-sm-4 col-md px-0'>
-                            <h3>Навигация</h3>
-                            <PaginationTestScreen count={questionQuantity} completed={getCompleted(userAnswers)}
-                             handleChange={handleChange} defaultPage={defaultPage}/>
+                            <button className="btn btn-dark fw-bold" onClick={() => setShowNavigation(!showNavigation)}>
+                                Навигация <img width={"20px"} src={navigationImage}/></button>
+                            {showNavigation && <TestNavbar questions_quantity={questionQuantity} 
+                            completed={getCompleted(userAnswers)} sendAnswers={sendAnswers} finishTest={finishTest}/>}
+                       
                         </div>
 
                         <div className="col-5 col-sm-4 col-md px-0 order-md-2">
                             <div className="timer-wrap" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
-                                <Timer duration={testDuration} onTimeout={() => finishTest()} finishTest={finishTest}/>
+                                <Timer duration={testDuration} onTimeout={() => finishTest()} finishTest={finishTest} />
                                 <div className="timer-info" style={{ display: timerInfo ? 'block' : 'none' }}>
                                     <p>По окончании таймера <br /> Ваши ответы отправятся автоматически</p>
                                 </div>
                             </div>
                         </div>
+                         
+
                         <motion.div
-                            initial={
-                                {
-                                    opacity: 0
+                                initial={
+                                    {
+                                        opacity: 0
+                                    }
                                 }
-                            }
-                            animate={
-                                {
-                                    opacity: 1,
+                                animate={
+                                    {
+                                        opacity: 1,
+                                    }}
+                                transition={{
+                                    duration: 0.7,
+                                    ease: "linear"
                                 }}
-                            transition={{
-                                duration: 0.7,
-                                ease: "linear"
-                            }}
-                            className='col-12 col-sm-8 order-md-1 col-md-6 col-lg-5 d-flex justify-content-center'>
-                            <AppCard width={90} id={id} testID={testID} question={question} questionsQuantity={questionQuantity}
-                                variants={answers} picture={pictureURL}
-                                userAnswers={userAnswers} active={active} getActual={getActualAnswers} 
-                                setActive={activeSetter} setAnswers={userAnswersSetter}
-                                finishTest={finishTest}/>
+                                className='col-12 col-sm-8 order-md-1 col-md-6 col-lg-5 d-flex justify-content-center'>
+                                <div className=" ">
+
+                                    <AppCard width={100} id={id} testID={testID} question={question} questionsQuantity={questionQuantity}
+                                        variants={answers} picture={pictureURL}
+                                        userAnswers={userAnswers} active={active} getActual={getActualAnswers}
+                                        setActive={activeSetter} setAnswers={userAnswersSetter}
+                                        finishTest={finishTest} sendAnswers={sendAnswers}/>
+                                </div>
                         </motion.div>
+                         
 
                     </div>
 

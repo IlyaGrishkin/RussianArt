@@ -47,43 +47,12 @@ function AppCard(props) {
 
 
 
-    function sendAnswers() {
-        const answers = userAnswers
-        console.log(answers)
-        const apiUrl = API_URLS.UPDATE_TEST;
-        let config = {
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Auth-Token": JSON.parse(localStorage.getItem("accessToken"))
-            }
-        }
-        axios.post(apiUrl,
-            {
-                test_id: testID,
-                user_answers: answers
-            },
-            config
-        )
-
-            .then((resp) => {
-                const serverData = resp.data;
-                console.log(serverData);
-                //localStorage.setItem("timeStart", JSON.stringify(parseInt((new Date(serverData.data.created_at).getTime() / 1000).toFixed(0))))
-            })
-            .catch((resp) => {
-                console.log(resp)
-                if (resp.response.status == 400) {
-                    window.location.href = URLS.TEST_RESULT
-                }
-            }
-            )
-    }
-
+    
     
 
     return (
-        <Card style={{width: matches ? '100%' : '90%'}} className='my-3 '>
-            <div>
+        <Card style={{width: matches ? '100%' : '100%'}} className='my-3'>
+            <div className=''>
                 <Card.Img variant="top" src={props.picture ? SERVER_HOST + props.picture : "https://avatars.mds.yandex.net/i?id=dc7cbd3877e56749ab41a0fcc5145434_l-5231880-images-thumbs&n=13"} />
                 <Card.Body>
                     <Card.Title>{ }</Card.Title>
@@ -107,11 +76,11 @@ function AppCard(props) {
                     {
                         questionsQuantity == id ?
                             <>
-                                <Button onClick={() => { sendAnswers() }} className="w-50" variant='outline-success' >Сохранить</Button>
-                                <Button onClick={() => { sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50" variant='outline-success' >Завершить тест</Button>
+                                <Button onClick={() => { props.sendAnswers() }} className="w-50" variant='outline-success' >Сохранить</Button>
+                                <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50" variant='outline-success' >Завершить тест</Button>
                             </>
                             :
-                            <Button onClick={() => { sendAnswers();  window.location.href = nextQuestion(testID, id)}} className="w-50" variant='outline-success' >Далее</Button>
+                            <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}} className="w-50" variant='outline-success' >Далее</Button>
                     }
 
 

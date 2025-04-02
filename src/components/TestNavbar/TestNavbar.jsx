@@ -3,6 +3,7 @@ import './TestNavbar.css'
 import { Button } from 'react-bootstrap';
 
 import { useParams } from 'react-router-dom';
+import { getTestResult } from '../Utils/constants';
 
 
 
@@ -50,11 +51,15 @@ function TestNavbar(props) {
 
 
     return (
-        <div className='main-wrap'>
-            {arr.map((item) => (
-                <>{item}</>
-            ))}
-        </div>
+        <>
+            <div className='main-wrap my-3'>
+                {arr.map((item) => (
+                    <>{item}</>
+                ))}
+    
+            </div>
+            <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="" variant='dark' >Завершить тест</Button>
+        </>
 
 
     )
