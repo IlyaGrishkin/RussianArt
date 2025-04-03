@@ -6,6 +6,16 @@ import './Timer.css';
 
 function Timer(props) {
 
+    const [matches, setMatches] = useState(
+            window.matchMedia("(min-width: 768px)").matches
+        )
+    
+        useEffect(() => {
+            window
+                .matchMedia("(min-width: 768px)")
+                .addEventListener('change', e => setMatches(e.matches));
+        }, []);
+
     if (!localStorage.getItem("testTime")) {
         localStorage.setItem("testTime", 10000)
     }
@@ -43,13 +53,13 @@ function Timer(props) {
         setTimeout(countdown, 1000)
     }, [time])
 
-
+    const timeSize = matches ? '80px' : '50px' 
 
     return (
  
-        <div className='timer my-3' >
+        <div className='timer my-3 mx-lg-3'>
             <img src="https://img.icons8.com/forma-light/96/time.png" alt="time"/>
-            <h2 key={"timerTime"}>{humanTime}</h2>
+            <h2 className='fs-2' key={"timerTime"} style={{width: timeSize}}>{humanTime}</h2>
         </div>
         
  

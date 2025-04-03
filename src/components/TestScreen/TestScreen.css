@@ -62,16 +62,10 @@
 .timer {
   align-items: center;
 }
-.timer h2{
-  width: 85px;
-}
+
 
 @media (max-width: 1200px) and (min-width: 760px){
-  .timer h2{
-    font-size: 25px;
-    margin-top: 2px;
-    width: 60px;
-  }
+   
   
   .myCard {
     max-width: 70%;
@@ -90,10 +84,7 @@
 }
 
 @media (max-width: 760px) and (min-width: 600px){
-  .timer h2{
-    font-size: 25px;
-    width: 55px;
-  }
+
   .myCard {
     max-width: 80%;
   }
@@ -107,11 +98,7 @@
 
 @media (max-width: 600px){
   
-  .timer h2 {
-    font-size: 22px;
-    margin-top: 0px;
-    width: 44px;
-  }
+
    
   .test-nav {
     grid-column: 2/12;

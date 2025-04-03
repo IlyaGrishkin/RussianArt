@@ -138,7 +138,10 @@ export function HelloScreen() {
     return (
         <div className="container">
             <div className='border-start border-end'>
-                <AppNavbar/>
+                <div className='mb-3'>
+                    <AppNavbar/>
+                </div>
+                    
                 <div className='d-flex gap-3 align-items-center justify-content-end pe-4'>
                     <div className="rounded-circle mb-5" style={{ width: "14px", height: "14px", backgroundColor: 'black' }}></div>
                     <p className='fw-bold fs-5 text-end'>

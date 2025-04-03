@@ -58,7 +58,9 @@ function TestNavbar(props) {
                 ))}
     
             </div>
-            <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="" variant='dark' >Завершить тест</Button>
+            <div className='d-flex justify-content-center'>
+                <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="" variant='dark' >Завершить тест</Button>
+            </div>
         </>
 
 

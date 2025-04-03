@@ -10,6 +10,7 @@ import { API_URLS, getTest, getTestResult, goToQuestion, URLS } from "../Utils/c
 import AppNavbar from "../Navbar/Navbar";
 import navigationImage from './navigation1.svg'
 import { styled } from "@mui/material";
+import { Offcanvas } from "react-bootstrap";
 
 
 
@@ -188,24 +189,41 @@ function TestScreen(props) {
         localStorage.setItem("defaultPage", JSON.stringify(value))
         window.location.href = goToQuestion(testID, value)
     };
-
+    const adder = showNavigation ? 'py-1' : 'align-items-center align-items-md-stretch'
 
     {
         return (
             <>
                 <AppNavbar />
-                <div className='container-fluid'>
+                <div style={{minHeight: "90vh"}} className='container-fluid border-start border-end'>
                     <div className="row d-flex justify-content-center">
-                        <div className='col-5 col-sm-4 col-md px-0'>
-                            <button className="btn btn-dark fw-bold" onClick={() => setShowNavigation(!showNavigation)}>
-                                Навигация <img width={"20px"} src={navigationImage}/></button>
-                            {showNavigation && <TestNavbar questions_quantity={questionQuantity} 
-                            completed={getCompleted(userAnswers)} sendAnswers={sendAnswers} finishTest={finishTest}/>}
+                        <div className='col-5 col-sm-4 col-md px-0 d-flex justify-content-center
+                         justify-content-md-start'>
+                            <div>
+                                <div className="d-flex justify-content-center justify-content-md-start">
+                                    <button className="btn btn-dark fw-bold my-3 mx-md-3 mx-lg-4" onClick={() => setShowNavigation(!showNavigation)}>
+                                        Навигация <img width={"20px"} src={navigationImage}/></button>
+                                </div>
+                                <div>
+
+                                <Offcanvas show={showNavigation} onHide={() => setShowNavigation(!showNavigation)}>
+                                    <Offcanvas.Header closeButton className="border-bottom">
+                                    <Offcanvas.Title className="px-3 fw-bold fs-4">Навигация</Offcanvas.Title>
+                                    </Offcanvas.Header>
+                                    <Offcanvas.Body>
+                                        <TestNavbar questions_quantity={questionQuantity} 
+                                        completed={getCompleted(userAnswers)} sendAnswers={sendAnswers} finishTest={finishTest}/>   
+                                    </Offcanvas.Body>
+                                </Offcanvas>
+                                
+                                </div>
+                            </div>
                        
                         </div>
 
-                        <div className="col-5 col-sm-4 col-md px-0 order-md-2">
-                            <div className="timer-wrap" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
+                        <div className={`col-5 col-sm-4 col-md px-0 order-md-2 d-flex justify-content-center
+                        justify-content-md-end ${adder}`}>
+                            <div className="timer-wrap d-flex" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
                                 <Timer duration={testDuration} onTimeout={() => finishTest()} finishTest={finishTest} />
                                 <div className="timer-info" style={{ display: timerInfo ? 'block' : 'none' }}>
                                     <p>По окончании таймера <br /> Ваши ответы отправятся автоматически</p>
@@ -228,8 +246,8 @@ function TestScreen(props) {
                                     duration: 0.7,
                                     ease: "linear"
                                 }}
-                                className='col-12 col-sm-8 order-md-1 col-md-6 col-lg-5 d-flex justify-content-center'>
-                                <div className=" ">
+                                className='col-12 col-sm-10  order-md-1 col-md-6 col-lg-5 d-flex justify-content-center'>
+                                <div className="">
 
                                     <AppCard width={100} id={id} testID={testID} question={question} questionsQuantity={questionQuantity}
                                         variants={answers} picture={pictureURL}

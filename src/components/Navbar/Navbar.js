@@ -92,7 +92,7 @@ function AppNavbar() {
   return (
     <>
     
-      <Navbar expand={'lg'} className="mb-3 bg-transparent border-bottom">
+      <Navbar expand={'lg'} className="bg-transparent border-bottom">
           <Container fluid>
             <Navbar.Brand className='my-navbar-brand ps-3'>Русское искусство <br/> и наследие</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${'lg'}`} />
