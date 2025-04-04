@@ -65,7 +65,7 @@ function AppCard(props) {
                     {variants.map((variant) => (
                         <ListGroup.Item>
                             <Button className="w-100"
-                                variant={(active.indexOf(variant.id) != -1) ? "primary" : "outline-primary"}
+                                variant={(active.indexOf(variant.id) != -1) ? "dark" : "outline-dark"}
                                 onClick={() => { addAnswer(id, variant.id); }}>{variant.text}
                             </Button>
                         </ListGroup.Item>
@@ -77,10 +77,10 @@ function AppCard(props) {
                         questionsQuantity == id ?
                             <>
                                 <Button onClick={() => { props.sendAnswers() }} className="w-50" variant='outline-success' >Сохранить</Button>
-                                <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50" variant='outline-success' >Завершить тест</Button>
+                                <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50" variant='success' >Завершить тест</Button>
                             </>
                             :
-                            <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}} className="w-50" variant='outline-success' >Далее</Button>
+                            <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}} className="w-100" variant='success' >Далее</Button>
                     }
 
 

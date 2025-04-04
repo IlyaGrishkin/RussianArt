@@ -26,7 +26,6 @@ function Timer(props) {
     const [time, setTime] = useState("...")
     const [humanTime, setHumanTime] = useState('...')
 
-
     function countdown() {
         let delta = Math.floor((Date.now() / 1000)) - startTime;
         const newTime = Math.max(Math.floor((duration - delta)), 0)

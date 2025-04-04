@@ -11,6 +11,7 @@ import AppNavbar from "../Navbar/Navbar";
 import navigationImage from './navigation1.svg'
 import { styled } from "@mui/material";
 import { Offcanvas } from "react-bootstrap";
+import { Footer } from "../Footer/Footer";
 
 
 
@@ -33,7 +34,7 @@ function TestScreen(props) {
     const [pictureURL, setPictureURL] = useState(pictureMemo ? pictureMemo : "")
 
     const [show, setShow] = useState(false)
-    const [timerInfo, setTimerInfo] = useState(false)
+    
 
     const [userAnswers, setUserAnswers] = useState({})
     const [active, setActive] = useState([]);
@@ -122,7 +123,7 @@ function TestScreen(props) {
 
 
 
-    async function finishTest() {
+    function finishTest() {
         localStorage.removeItem("testRunning");
         localStorage.removeItem("serverData")
 
@@ -133,7 +134,7 @@ function TestScreen(props) {
                 "Auth-Token": JSON.parse(localStorage.getItem("accessToken"))
             }
         }
-        await axios.post(apiUrl,
+        axios.post(apiUrl,
             {
             },
             config
@@ -149,7 +150,7 @@ function TestScreen(props) {
 
     }
 
-    async function sendAnswers() {
+    function sendAnswers() {
         const answers = userAnswers
         console.log(answers)
         const apiUrl = API_URLS.UPDATE_TEST;
@@ -159,7 +160,7 @@ function TestScreen(props) {
                 "Auth-Token": JSON.parse(localStorage.getItem("accessToken"))
             }
         }
-        await axios.post(apiUrl,
+        axios.post(apiUrl,
             {
                 test_id: testID,
                 user_answers: answers
@@ -193,9 +194,11 @@ function TestScreen(props) {
 
     {
         return (
-            <>
-                <AppNavbar />
-                <div style={{minHeight: "90vh"}} className='container-fluid border-start border-end'>
+            <>  
+                <div className="border-start border-end">
+                    <AppNavbar />
+                </div>
+                <div style={{minHeight: "80vh"}} className='container-fluid border-start border-end'>
                     <div className="row d-flex justify-content-center">
                         <div className='col-5 col-sm-4 col-md px-0 d-flex justify-content-center
                          justify-content-md-start'>
@@ -223,11 +226,8 @@ function TestScreen(props) {
 
                         <div className={`col-5 col-sm-4 col-md px-0 order-md-2 d-flex justify-content-center
                         justify-content-md-end ${adder}`}>
-                            <div className="timer-wrap d-flex" onMouseOver={() => setTimerInfo(true)} onMouseOut={() => setTimerInfo(false)}>
+                            <div className="timer-wrap d-flex">
                                 <Timer duration={testDuration} onTimeout={() => finishTest()} finishTest={finishTest} />
-                                <div className="timer-info" style={{ display: timerInfo ? 'block' : 'none' }}>
-                                    <p>По окончании таймера <br /> Ваши ответы отправятся автоматически</p>
-                                </div>
                             </div>
                         </div>
                          
@@ -263,6 +263,7 @@ function TestScreen(props) {
 
 
                 </div>
+                <Footer/>
             </>
         )
 

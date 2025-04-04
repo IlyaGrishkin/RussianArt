@@ -1,7 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Table } from "antd";
-import { API_URLS, SERVER_HOST, URLS } from "../Utils/constants";
+import { API_URLS, SERVER_HOST, startTest, URLS } from "../Utils/constants";
+import AppNavbar from "../Navbar/Navbar";
+import { Footer } from "../Footer/Footer";
+import mailImage from './mail.svgz'
 
 
 export function Profile() {
@@ -62,6 +65,7 @@ export function Profile() {
             )
             .then(resp => {
                 const serverData = resp.data;
+                console.log('running test', serverData)
                 setRunningTest(serverData.data.test_id)
             })
             .catch(resp => {
@@ -109,7 +113,8 @@ export function Profile() {
             key: 'endTime',
           },
       ];
-      
+    
+     
       
 
     if (noToken) {
@@ -117,25 +122,40 @@ export function Profile() {
     }
     else {
         return (
-            <div className="container-fluid">
-                <div className="row mt-5 d-flex justify-content-between">
-                    <div className="col-12 col-md-5">
-                        <img style={{maxWidth: 100 + "%", borderRadius: 4 + "%"}} src={avatar}/>
-                    </div>
-                    <div className="col-12 col-md-6 mt-3">
-                        <h2 className="mb-4">{name}</h2>
-                        <h5 className="mb-4">{email}</h5>
-                        <h5>{regDate}</h5>
-                    </div>
+            <>  
+                <div className="border-start border-end">
+                    <AppNavbar/>
                 </div>
-                <div className="row">
-                 
-                </div>
-                <Table dataSource={dataSource} columns={columns} pagination={false}/>
+                <div className="container-fluid border-start border-end pt-3 px-4">
+                    <div className="row">
+                        <h1>Профиль</h1>
+                    </div>
+                    <div className="row d-flex justify-content-between">
+                        <div className="col-12 col-md-5">
+                            <img style={{width: 100 + "%", borderRadius: 4 + "%"}} src={avatar}/>
+                        </div>
+                        <div className="col-12 col-md-6 d-flex justify-content-center mt-3">
+                            <div>
+                                <h2 className="mb-4 fw-bold fs-1">{name}</h2>
+                                <div className="d-flex align-items-center gap-2 mb-3">
+                                    <img src={mailImage} style={{width: "30px", paddingBottom: "2px"}}/>
+                                    <h5 className="fw-bold fs-2"> {email}</h5>
+                                </div>
+                                <h5 className="fw-bold mb-3">Дата регистрации: {regDate}</h5>
+                                <button className="btn btn-dark">Редактировать профиль</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                    
+                    </div>
+                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={{x: 600}}/>
 
-                <a className="btn btn-danger" href="/logout/">Выйти</a>
-                {runningTest && <a className="btn btn-success" href={`/card/${runningTest}/1/`}>Продожить попытку</a>}
-            </div>   
+                    <a className="btn btn-danger" href="/logout/">Выйти</a>
+                    {runningTest && <button className="btn btn-success" onClick={()=>{}}>Продожить попытку</button>}
+                </div>
+                <Footer/>
+            </>
         )
     }
     

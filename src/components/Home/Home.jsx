@@ -88,7 +88,7 @@ export function Home() {
     const [readyToStart, setReadyToStart] = useState(null)
 
     //pagination
-    const MAX_CARDS = 4
+    const MAX_CARDS = 6
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
         setPage(value);
@@ -291,8 +291,8 @@ export function Home() {
                     }
                     localStorage.setItem("testDuration", JSON.stringify(test.work_time * 60))
                     localStorage.setItem("testRunning", JSON.stringify(testID))
+                
                     window.location.href = startTest(testID)
-
                 })
                 .catch(resp => {
                     if (resp.response.status == 400) {
