@@ -128,31 +128,37 @@ export function Profile() {
                 </div>
                 <div className="container-fluid border-start border-end pt-3 px-4">
                     <div className="row">
-                        <h1>Профиль</h1>
+                        <h1 className="fw-bold fs-1">Профиль</h1>
                     </div>
                     <div className="row d-flex justify-content-between">
                         <div className="col-12 col-md-5">
                             <img style={{width: 100 + "%", borderRadius: 4 + "%"}} src={avatar}/>
                         </div>
-                        <div className="col-12 col-md-6 d-flex justify-content-center mt-3">
-                            <div>
+
+                        <div className="col-12 col-md-6 d-flex justify-content-center mt-5 mt-md-3">
+                            <div style={{overflowX: "auto"}}>
                                 <h2 className="mb-4 fw-bold fs-1">{name}</h2>
                                 <div className="d-flex align-items-center gap-2 mb-3">
                                     <img src={mailImage} style={{width: "30px", paddingBottom: "2px"}}/>
                                     <h5 className="fw-bold fs-2"> {email}</h5>
                                 </div>
                                 <h5 className="fw-bold mb-3">Дата регистрации: {regDate}</h5>
-                                <button className="btn btn-dark">Редактировать профиль</button>
+                                <div className="d-flex align-items-center">
+                                    <button className="btn btn-dark">Редактировать профиль</button>
+                                    <button className="btn btn-danger ms-2" onClick={() => window.location.href = URLS.LOGOUT}>Выйти из аккаунта</button>
+                                </div>
+                                {runningTest && <button className="btn btn-success d-block mt-3" onClick={()=>{}}>Продожить попытку</button>}
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                    
-                    </div>
-                    <Table dataSource={dataSource} columns={columns} pagination={false} scroll={{x: 600}}/>
 
-                    <a className="btn btn-danger" href="/logout/">Выйти</a>
-                    {runningTest && <button className="btn btn-success" onClick={()=>{}}>Продожить попытку</button>}
+                    <div className="mt-4 py-4 border-top">
+                        <h2 className="mb-3">Ваши попытки</h2>
+                        <Table dataSource={dataSource} columns={columns} pagination={false} scroll={{x: 600}}/>
+                    </div>
+
+                    
+                    
                 </div>
                 <Footer/>
             </>

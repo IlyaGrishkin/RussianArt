@@ -55,7 +55,8 @@ export const URLS = {
     SIGNUP: "http://localhost:3000/signup/",
     SIGNUP_CONFIRM: "http://localhost:3000/signup/confirm/",
     GUIDE_CARDS: "http://localhost:3000/guide-cards/",
-    ALL_TESTS: "http://localhost:3000/tests/"
+    ALL_TESTS: "http://localhost:3000/tests/",
+    LOGOUT: "http://localhost:3000/logout/"
 }
 
 
