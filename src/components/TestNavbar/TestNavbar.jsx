@@ -3,7 +3,8 @@ import './TestNavbar.css'
 import { Button } from 'react-bootstrap';
 
 import { useParams } from 'react-router-dom';
-import { getTestResult } from '../Utils/constants';
+import { getTestResult, URLS } from '../Utils/constants';
+import AppNavbar from '../Navbar/Navbar';
 
 
 
@@ -52,15 +53,25 @@ function TestNavbar(props) {
 
     return (
         <>
+                
             <div className='main-wrap my-3'>
                 {arr.map((item) => (
                     <>{item}</>
                 ))}
     
             </div>
-            <div className='d-flex justify-content-center'>
-                <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="" variant='dark' >Завершить тест</Button>
-            </div>
+            {
+                props.viewing ?
+                <div className='d-flex justify-content-center'>
+                    <Button onClick={() => {window.location.href = URLS.HOME }} className="" variant='dark'>Закончить просмотр</Button>
+                </div>
+                :
+                <div className='d-flex justify-content-center'>
+                    <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="" variant='dark' >Завершить тест</Button>
+                </div>
+
+                 
+            }
         </>
 
 

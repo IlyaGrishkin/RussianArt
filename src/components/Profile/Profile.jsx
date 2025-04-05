@@ -35,10 +35,9 @@ export function Profile() {
                 setAvatar(SERVER_HOST + serverData.data.avatar_path)
                 setEmail(serverData.data.user_email)
                 const date = new Date(serverData.data.user_created_at)
-                setRegDate(`${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${parseInt(date.getMonth()) + 1}.${date.getFullYear()}`)
+                setRegDate(`${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${String(date.getMonth()).length == 1 ? "0" + String(date.getMonth() + 1) : parseInt(date.getMonth()) + 1}.${date.getFullYear()}`)
                 setName(serverData.data.user_name)
                 setTestList(serverData.data.user_attempts.slice(0, 10))
-                console.log(serverData.data.user_attempts.slice(0, 10))
             })
             .catch(resp => {
                 console.log(resp)
@@ -85,7 +84,7 @@ export function Profile() {
         newObj.test = obj.test_title
         newObj.timeSpent = obj.time_spent
         const date = new Date(obj.end_time)   
-        newObj.endTime = `${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${parseInt(date.getMonth()) + 1}.${date.getFullYear()}`
+        newObj.endTime = `${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${String(date.getMonth()).length == 1 ? "0" + String(date.getMonth() + 1) : parseInt(date.getMonth()) + 1}.${date.getFullYear()}`
         dataSource.push(newObj)
     }
 

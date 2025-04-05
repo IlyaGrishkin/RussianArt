@@ -5,6 +5,11 @@ import './LoginForm.css';
 import axios from 'axios'
 import { Backdrop, CircularProgress } from '@mui/material';
 import { API_URLS, URLS } from '../Utils/constants';
+import carousel1 from './carousel1.jpg'
+import carousel2 from './carousel2.webp'
+import carousel3 from './carousel3.jpg'
+import AppNavbar from '../Navbar/Navbar';
+import { Footer } from '../Footer/Footer';
 
 
 
@@ -71,65 +76,42 @@ function LoginForm(props) {
     }
 
     return (
-        <div className='login-form-wrapper'>
-            <div className='wrapper'>
-                <div className='login-info'>
-                     
-                        <Carousel slide={false}>
-                            <Carousel.Item>
-                            <img className="" src="http://127.0.0.1:8080/i.webp"/>
-                                <Carousel.Caption>
-                                    <h3>First slide label</h3>
-                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                            <img src="http://127.0.0.1:8080/zhivopis_holst_iskusstvo_60857_1920x1080.jpg"/>
-                                <Carousel.Caption>
-                                    <h3>Second slide label</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <img src="http://127.0.0.1:8080/1677481342_bronk-club-p-otkritki-tomas-kinkeid-instagram-25.jpg"/>
-                                <Carousel.Caption>
-                                    <h3>Third slide label</h3>
-                                    <p>
-                                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                                    </p>
-                                
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        </Carousel>
-                     
-                </div>
-
-                <div className='form-wrap'>
-                    <div className='login-msg'>
-                        <h2>Вход</h2>
+        <>
+            <div className='border-start border-end'>
+                <AppNavbar/>
+            </div>        
+            <div style={{minHeight: "70vh"}} className='border-start border-end'>
+                <div className='login-form-wrapper m-0 pt-5'>
+                    <div className='wrapper'>
+                        <div className='form-wrap'>
+                            <div className='login-msg'>
+                                <h2>Вход</h2>
+                            </div>
+                            
+                            <form className='login-form' onSubmit={handleSubmit} noValidate={true}>
+                                <label htmlFor="email"><p>Введите свой email</p></label>
+                                <input className="form-control my-2" value={email} onChange={e => handleChange(e)} onBlur={e => handleBlur(e)} id="email"
+                                    type="email" name="emailAddress" placeholder='Ваша почта' />
+                                {(emailError && emailDirty) ? <div style={{ color: "red" }}>{emailError}</div> : <></>}
+                                <button type="submit" className={formValid ? 'btn btn-dark w-100 my-2' : 'btn btn-dark disabled w-100 my-2'}>Отправить</button>
+                            </form>
+                            <div className='create-account'>
+                                <p>Нет аккаунта? <a href="/signup/">Зарегистрироваться</a></p>
+                            </div>
+                        </div>
+                        
                     </div>
-                    
-                    <form className='login-form' onSubmit={handleSubmit} noValidate={true}>
-                        <label htmlFor="email"><p>Введите свой email</p></label>
-                        <input className="form-control my-2" value={email} onChange={e => handleChange(e)} onBlur={e => handleBlur(e)} id="email"
-                            type="email" name="emailAddress" placeholder='Ваша почта' />
-                        {(emailError && emailDirty) ? <div style={{ color: "red" }}>{emailError}</div> : <></>}
-                        <button type="submit" className={formValid ? 'btn btn-dark w-100 my-2' : 'btn btn-dark disabled w-100 my-2'}>Отправить</button>
-                    </form>
-                    <div className='create-account'>
-                        <p>Нет аккаунта? <a href="/signup/">Зарегистрироваться</a></p>
-                    </div>
+                    <Backdrop
+                        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                        open={loading}
+                        onClick={null}
+                        >
+                        <CircularProgress color="inherit" />
+                    </Backdrop>
                 </div>
-                
             </div>
-            <Backdrop
-                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                open={loading}
-                onClick={null}
-                >
-                <CircularProgress color="inherit" />
-            </Backdrop>
-        </div>
+            <Footer/>
+        </>
     );
 }
 

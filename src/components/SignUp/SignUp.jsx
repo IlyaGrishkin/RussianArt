@@ -2,6 +2,9 @@ import { Backdrop, CircularProgress } from "@mui/material"
 import axios from "axios"
 import { useState } from "react"
 import { API_URLS, URLS } from "../Utils/constants"
+import AppNavbar from '../Navbar/Navbar';
+import "./SignUp.css"
+import { Footer } from "../Footer/Footer";
 
 
 export function SignUp() {
@@ -100,36 +103,44 @@ export function SignUp() {
     }
 
     return (
-        <div className="container-fluid my-5">
-            <div className="row my-5 d-flex justify-content-center">
-                <div className="col-12 col-md-6 d-flex justify-content-center">
-                    <form onSubmit={handleSubmit} noValidate={true}>
-                        <label className="p-0 m-0" htmlFor="email">email</label>
-                        <input className="form-control m-0" value={email} onChange={e => handleChange(e)} onBlur={e => handleBlur(e)} id="email"
-                            type="email" name="emailAddress" placeholder='Ваша почта' />
-                        {(emailError && emailDirty) ? <div style={{ color: "red" }}>{emailError}</div> : <></>}
-
-                        <label className="mt-4" htmlFor="firstName">Имя</label>
-                        <input className="form-control m-0" value={firstName} onChange={e => handleNameChange(e)} 
-                        placeholder="Ваше имя"/>
-                        {firstNameError ? <div style={{ color: "red" }}>{firstNameError}</div> : <></>}
-
-                        <label className="mt-4" htmlFor="firstName">Фамилия</label>
-                        <input className="form-control m-0" value={secondName} onChange={e => handleSecondNameChange(e)}
-                        placeholder="Ваша фамилия"/>
-                        {secondNameError ? <div style={{ color: "red" }}>{secondNameError}</div> : <></>}
-                        <button type="submit" className="btn btn-primary mt-4">Создать аккаунт</button>
-                        <p>Уже есть аккаунт? <a href="/login/">Войти</a></p>
-                    </form>
-                </div>
+        <>
+            <div className="border-start border-end">
+                <AppNavbar/>
             </div>
-            <Backdrop
-                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                open={loading}
-                onClick={null}
-                >
-                <CircularProgress color="inherit" />
-            </Backdrop>
-        </div>
+            <div className="container-fluid py-5 border-start border-end">
+                <div className="row  d-flex justify-content-center">
+                    <div className="col-12 col-md-6 d-flex justify-content-center">
+                        <form onSubmit={handleSubmit} noValidate={true} style={{backgroundColor: "white"}} 
+                        className="p-5 pt-3 radius-3 signup-form-mixin">
+                            <h2 className="mb-3 text-body-secondary">Регистрация</h2>
+                            <label className="p-0 m-0 fw-bold fs-5" htmlFor="email">Email</label>
+                            <input className="form-control m-0" value={email} onChange={e => handleChange(e)} onBlur={e => handleBlur(e)} id="email"
+                                type="email" name="emailAddress" placeholder='Ваша почта' />
+                            {(emailError && emailDirty) ? <div style={{ color: "red" }}>{emailError}</div> : <></>}
+
+                            <label className="mt-3 fw-bold fs-5" htmlFor="firstName">Имя</label>
+                            <input className="form-control m-0" value={firstName} onChange={e => handleNameChange(e)} 
+                            placeholder="Ваше имя"/>
+                            {firstNameError ? <div style={{ color: "red" }}>{firstNameError}</div> : <></>}
+
+                            <label className="mt-3 fw-bold fs-5" htmlFor="firstName">Фамилия</label>
+                            <input className="form-control m-0" value={secondName} onChange={e => handleSecondNameChange(e)}
+                            placeholder="Ваша фамилия"/>
+                            {secondNameError ? <div style={{ color: "red" }}>{secondNameError}</div> : <></>}
+                            <button type="submit" className="btn btn-dark mt-3">Создать аккаунт</button>
+                            <p className="mt-2">Уже есть аккаунт? <a href="/login/">Войти</a></p>
+                        </form>
+                    </div>
+                </div>
+                <Backdrop
+                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                    open={loading}
+                    onClick={null}
+                    >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            </div>
+            <Footer/>
+        </>
     )
 }

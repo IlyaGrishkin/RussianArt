@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import { API_URLS, URLS } from '../Utils/constants';
+import AppNavbar from '../Navbar/Navbar';
+import { Footer } from '../Footer/Footer';
 
 
 
@@ -10,7 +12,7 @@ export function TestResults() {
     const [result, setResult] = useState("Загрузка...");
     const [timeSpent, setTimeSpent] = useState('...')
     const [attemptID, setAttemptID] = useState(0)
-
+    const [testName, setTestName] = useState("")
 
     useEffect(() => {
         localStorage.removeItem("answers")
@@ -36,6 +38,7 @@ export function TestResults() {
                 console.log(serverData.data.user_attempts)
                 console.log(current)
                 setResult(`${current.total_score}/${current.question_count}`)
+                setTestName(current.test_title)
                 setTimeSpent(current.time_spent)
                 setAttemptID(current.attempt_id)
                 
@@ -52,11 +55,27 @@ export function TestResults() {
     }, [])
 
     return (
-        <div>
-            <h1>Ваш результат: {result}</h1>
-            <h2>Время прохождения: {timeSpent}</h2>
-            <a href={`/viewing/${attemptID}/1/`}>Просмотр</a>
-        </div>
+        <>
+            <div className='border-start border-end'>
+                <AppNavbar/>
+            </div>
+            <div style={{minHeight: "80vh"}} className='border-start border-end d-flex justify-content-center'>
+                <div className='py-4 border-start border-end'>
+                    <div className='w-100 border-bottom px-4'>
+                        <h1>"{testName}"</h1>
+                    </div>
+                    <div className='d-flex justify-content-center flex-column mt-4'>
+                        <h1 className='text-center'>Ваш результат: {result}</h1>
+                        <h2 className='text-center'>Время прохождения: {timeSpent}</h2>
+                    </div>
+                    <div className='d-flex justify-content-center mt-3'>
+                        <a href={`/viewing/${attemptID}/1/`} className='btn btn-dark mt-2 w-50'>Просмотр</a>
+                    </div>
+                    
+                </div>
+            </div>
+            <Footer/>
+        </>
     )
 }
 
