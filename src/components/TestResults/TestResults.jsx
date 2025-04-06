@@ -14,6 +14,16 @@ export function TestResults() {
     const [attemptID, setAttemptID] = useState(0)
     const [testName, setTestName] = useState("")
 
+    const [matches, setMatches] = useState(
+            window.matchMedia("(min-width: 576px)").matches
+        )
+    
+    useEffect(() => {
+            window
+                .matchMedia("(min-width: 576px)")
+                .addEventListener('change', e => setMatches(e.matches));
+        }, []);
+
     useEffect(() => {
         localStorage.removeItem("answers")
         localStorage.removeItem("testRunning")
@@ -60,13 +70,13 @@ export function TestResults() {
                 <AppNavbar/>
             </div>
             <div style={{minHeight: "80vh"}} className='border-start border-end d-flex justify-content-center'>
-                <div className='py-4 border-start border-end'>
+                <div className={matches ?  "py-4 border-start border-end" : 'py-4'}>
                     <div className='w-100 border-bottom px-4'>
-                        <h1>"{testName}"</h1>
+                        <h1 className='text-center px-2 fs-1 w-100'>"{testName}"</h1>
                     </div>
                     <div className='d-flex justify-content-center flex-column mt-4'>
-                        <h1 className='text-center'>Ваш результат: {result}</h1>
-                        <h2 className='text-center'>Время прохождения: {timeSpent}</h2>
+                        <h1 className='text-center px-2 fs-2'>Ваш результат: {result}</h1>
+                        <h2 className='text-center px-2 fs-2'>Время прохождения: {timeSpent}</h2>
                     </div>
                     <div className='d-flex justify-content-center mt-3'>
                         <a href={`/viewing/${attemptID}/1/`} className='btn btn-dark mt-2 w-50'>Просмотр</a>

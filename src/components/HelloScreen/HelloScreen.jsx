@@ -3,7 +3,7 @@ import churchImage from './church.jpg'
 import archImage from './museum.svg'
 import { ScrollableList } from '../Scroller/Scroller'
 import { GuideCardPreview } from '../GuideCardPreview/GuideCardPreview'
-import { API_URLS, startTest, URLS } from '../Utils/constants'
+import { API_URLS, SERVER_HOST, startTest, URLS } from '../Utils/constants'
 import { useEffect, useState } from 'react'
 import timeImage from './time-svgrepo-com (2).svg'
 import quantityImg from './pen-new-square-svgrepo-com.svg'
@@ -58,7 +58,7 @@ export function HelloScreen() {
     }, [])
 
 
-    const items = [
+    let items = [
         <div className='guide-card-promo d-flex align-items-end border-end me-3' style={{ height: "400px", width: "250px" }}>
             <div className='mb-5'>
                 <div className="rounded-circle mb-3" style={{ width: "14px", height: "14px", backgroundColor: 'black' }}></div>
@@ -68,22 +68,34 @@ export function HelloScreen() {
                 <button className='btn btn-dark rounded-pill px-4' onClick={() => window.location.href = URLS.GUIDE_CARDS
                 }>Начать изучать</button>
             </div>
-
-        </div>,
-        <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={"https://avatars.mds.yandex.net/i?id=5b7efea1c6f9faed9bff0b588c4e1c76_l-4304327-images-thumbs&n=13"}
-            title={"Иконы"} text={"Погрузитесь в мир русской иконописи раовдо одывмолдр ловмыро ролрол рлр ррлл влоол ол"} />,
-        <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Leighton%2C_Frederic_-_Idyll_-_c._1880-81.jpg/600px-Leighton%2C_Frederic_-_Idyll_-_c._1880-81.jpg"}
-            title={"Иконы"} text={"Погрузитесь в мир русской иконописи"} />,
-        <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={"https://i09.fotocdn.net/s208/0f5e59af40cafe89/public_pin_l/2514485282.jpg"}
-            title={"Иконы"} text={"Погрузитесь в мир русской иконописи"} />,
-        <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={"https://avatars.mds.yandex.net/i?id=5b7efea1c6f9faed9bff0b588c4e1c76_l-4304327-images-thumbs&n=13"}
-            title={"Иконы"} text={"Погрузитесь в мир русской иконописи"} />,
-        <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={"https://avatars.mds.yandex.net/i?id=5b7efea1c6f9faed9bff0b588c4e1c76_l-4304327-images-thumbs&n=13"}
-            title={"Иконы"} text={"Погрузитесь в мир русской иконописи"} />,
-        <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={"https://avatars.mds.yandex.net/i?id=5b7efea1c6f9faed9bff0b588c4e1c76_l-4304327-images-thumbs&n=13"}
-            title={"Иконы"} text={"Погрузитесь в мир русской иконописи"} />,
-
+        </div>
     ]
+
+    const [cards, setCards] = useState([])
+        useEffect(() => {
+            const apiUrl = API_URLS.GET_ALL_CARDS
+            axios.get(apiUrl).then((resp) => {
+                const serverData = resp.data;
+                console.log(serverData)
+                let cards = serverData.data.items
+                let showCards = cards.map((item) => 
+                    <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={SERVER_HOST + item.picture}
+                    title={item.title} text={item.text} id={item.id}/>
+                )
+                
+                console.log('showCards', showCards)
+                items.push(...showCards)
+                setCards(items)
+            })
+            .catch(resp => {
+                console.log(resp)
+            })
+        }, [])
+
+
+        
+    
+    
 
     function handleTestStart(testID) {
         if (JSON.parse(localStorage.getItem("accessToken"))) {
@@ -135,6 +147,8 @@ export function HelloScreen() {
 
     const normalStyle = "col-12 col-lg-12 col-xl-10 col-xxl-9 d-flex  pt-4 border-top"
 
+    console.log(items)
+
     return (
         <div className="container">
             <div className='border-start border-end'>
@@ -148,7 +162,7 @@ export function HelloScreen() {
                         Русское искусство - мир <br />шедевров и секретов</p>
                 </div>
                 <div className='pb-5 border-bottom mb-5'>
-                    <h1 className='text-center'>Приглашаем вас исследовать  <span className='font-spectral'>РУССКОЕ<br /> ИСКУССТВО</span> вместе с нами</h1>
+                    <h1 className='text-center fs-1'>Приглашаем вас исследовать  <span className='font-spectral'>РУССКОЕ<br /> ИСКУССТВО</span> вместе с нами</h1>
                 </div>
              
 
@@ -158,7 +172,7 @@ export function HelloScreen() {
             </div>
 
             <div className="scrollable-wrap border-bottom border-top">
-                <ScrollableList items={items} />
+                <ScrollableList items={cards} />
             </div>
 
             <h2 className='text-center my-5'>Проверяйте свои знания</h2>

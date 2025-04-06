@@ -143,7 +143,7 @@ export function Profile() {
                                 </div>
                                 <h5 className="fw-bold mb-3">Дата регистрации: {regDate}</h5>
                                 <div className="d-flex align-items-center">
-                                    <button className="btn btn-dark">Редактировать профиль</button>
+                                    <button className="btn btn-dark" onClick={() => window.location.href = URLS.CHANGE_PROFILE}>Редактировать профиль</button>
                                     <button className="btn btn-danger ms-2" onClick={() => window.location.href = URLS.LOGOUT}>Выйти из аккаунта</button>
                                 </div>
                                 {runningTest && <button className="btn btn-success d-block mt-3" onClick={()=>{}}>Продожить попытку</button>}

@@ -20,6 +20,7 @@ import { HelloScreen } from './components/HelloScreen/HelloScreen';
 import { GuideCardScreen } from './components/GuideCardScreen/GuideCardScreen';
 import { API_URLS } from './components/Utils/constants';
 import { GuideCard } from './components/GuideCard/GuideCard';
+import { ChangeProfile } from './components/ChangeProfile/ChangeProfile';
 
 
 
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/signup/confirm/" element={<ConfirmForm apiUrl={API_URLS.CREATE_CONFIRM}/>} />
 
           <Route path='/profile/' element={<Profile/>}/>
+          <Route path='/profile/change/' element={<ChangeProfile/>}/>
           
           <Route path='/tests/' element={<Home/>}/>
           <Route path='/guide-cards/' element={<GuideCardScreen/>}/>

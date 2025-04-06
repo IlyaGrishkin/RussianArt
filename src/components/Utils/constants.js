@@ -56,7 +56,8 @@ export const URLS = {
     SIGNUP_CONFIRM: "http://localhost:3000/signup/confirm/",
     GUIDE_CARDS: "http://localhost:3000/guide-cards/",
     ALL_TESTS: "http://localhost:3000/tests/",
-    LOGOUT: "http://localhost:3000/logout/"
+    LOGOUT: "http://localhost:3000/logout/",
+    CHANGE_PROFILE: "http://localhost:3000/profile/change/"
 }
 
 
@@ -78,6 +79,7 @@ export const API_URLS = {
     GET_SEND_CODE: `http://localhost:8000/api/v1/customers/get/send_code`,
     CREATE_SEND_CODE: `http://localhost:8000/api/v1/customers/create/send_code`,
     GET_TEST_SESSION: 'http://localhost:8000/api/v1/tests/test_session/get_test_id',
+    UPDATE_PROFILE: 'http://localhost:8000/api/v1/customers/customer_update'
 }
 
 export function getUserAttempts(testID) {
