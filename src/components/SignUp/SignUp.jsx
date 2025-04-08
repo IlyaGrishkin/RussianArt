@@ -5,6 +5,7 @@ import { API_URLS, URLS } from "../Utils/constants"
 import AppNavbar from '../Navbar/Navbar';
 import "./SignUp.css"
 import { Footer } from "../Footer/Footer";
+import toast, { Toaster } from "react-hot-toast";
 
 
 export function SignUp() {
@@ -92,7 +93,7 @@ export function SignUp() {
             window.location.href = URLS.SIGNUP_CONFIRM
             })
             .catch(resp => {
-                alert('Неверный код')
+                toast.error("Произошла ошибка. Проверьте корректность данных и попробуйте еще раз.")
             })
             
             
@@ -141,6 +142,33 @@ export function SignUp() {
                 </Backdrop>
             </div>
             <Footer/>
+
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                    // Define default options
+                    className: '',
+                    duration: 5000,
+                    removeDelay: 1000,
+                    style: {
+                        background: '#363636',
+                        color: '#fff',
+                    },
+
+                    // Default options for specific types
+                    success: {
+                        duration: 3000,
+                        iconTheme: {
+                            primary: 'black',
+                            secondary: 'white',
+                        },
+                    },
+                }}
+            />
         </>
     )
 }

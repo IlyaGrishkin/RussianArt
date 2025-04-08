@@ -14,6 +14,7 @@ import timeImage from './time-svgrepo-com (2).svg'
 import quantityImg from './pen-new-square-svgrepo-com.svg'
 import AppNavbar from '../Navbar/Navbar';
 import { Footer } from '../Footer/Footer';
+import toast, { Toaster } from 'react-hot-toast';
 
 export function Home() {
     if (!JSON.parse(localStorage.getItem("filterActive"))) {
@@ -291,12 +292,12 @@ export function Home() {
                     }
                     localStorage.setItem("testDuration", JSON.stringify(test.work_time * 60))
                     localStorage.setItem("testRunning", JSON.stringify(testID))
-                
+
                     window.location.href = startTest(testID)
                 })
                 .catch(resp => {
                     if (resp.response.status == 400) {
-                        alert('Вы уже проходите другой тест. Завершите его, чтобы начать этот.')
+                        toast.error('Вы уже проходите другой тест. Завершите его, чтобы начать этот.')
                     }
                 })
 
@@ -304,7 +305,7 @@ export function Home() {
 
 
         else {
-            alert("Для прохождения теста необходимо авторизоваться")
+            toast.error("Для прохождения теста необходимо авторизоваться")
         }
     }
 
@@ -335,14 +336,14 @@ export function Home() {
                                     </Button>
 
                                     <Offcanvas show={show} onHide={handleClose}>
-                                        <Offcanvas.Header closeButton className='border-bottom' style={{backgroundColor: "#F3EEE8"}}>
+                                        <Offcanvas.Header closeButton className='border-bottom' style={{ backgroundColor: "#F3EEE8" }}>
                                             <Offcanvas.Title>
                                                 <div className='filter-info'>
                                                     <h2 className='fw-bold fs-1'>Фильтр</h2>
 
                                                 </div></Offcanvas.Title>
                                         </Offcanvas.Header>
-                                        <Offcanvas.Body style={{backgroundColor: "#F3EEE8"}}>
+                                        <Offcanvas.Body style={{ backgroundColor: "#F3EEE8" }}>
                                             <div className='sidebar'>
                                                 <div className='topic-wrapper'>
                                                     <h4>Тема</h4>
@@ -419,28 +420,28 @@ export function Home() {
                                         }}
                                     >
                                         <Card className="card mb-4 home-card-wrap p-0" style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 410 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
-                                                    <Card.Img variant="top" style={{ height: "200px" }} src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
-                                                    <Card.Body>
-                                                        <Card.Title className='card-title'>{test.title}</Card.Title>
-                                                        <Card.Text style={{ overflow: "hidden" }}>
-                                                            {test.description}
-                                                        </Card.Text>
-                                                        <Card.Text>
-                                                            <div className='timeInfo d-flex'>
-                                                                <p>Время: {test.work_time} мин</p>
-                                                                <img src={timeImage} width={20 + 'px'} className='pb-3 mx-2' />
-                                                            </div>
+                                            <Card.Img variant="top" style={{ height: "200px" }} src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
+                                            <Card.Body>
+                                                <Card.Title className='card-title'>{test.title}</Card.Title>
+                                                <Card.Text style={{ overflow: "hidden" }}>
+                                                    {test.description}
+                                                </Card.Text>
+                                                <Card.Text>
+                                                    <div className='timeInfo d-flex'>
+                                                        <p>Время: {test.work_time} мин</p>
+                                                        <img src={timeImage} width={20 + 'px'} className='pb-3 mx-2' />
+                                                    </div>
 
-                                                            <div className='questionsInfo d-flex'>
-                                                                <p>Количество вопросов: {test.question_count}</p>
-                                                                <img src={quantityImg} width={20 + 'px'} className='pb-3 mx-2' />
-                                                            </div>
+                                                    <div className='questionsInfo d-flex'>
+                                                        <p>Количество вопросов: {test.question_count}</p>
+                                                        <img src={quantityImg} width={20 + 'px'} className='pb-3 mx-2' />
+                                                    </div>
 
 
-                                                        </Card.Text>
-                                                    </Card.Body>
+                                                </Card.Text>
+                                            </Card.Body>
 
-                                            </Card>
+                                        </Card>
 
 
                                         <MyVerticallyCenteredModal
@@ -448,6 +449,7 @@ export function Home() {
                                             onHide={() => setModalShow(false)}
                                             testName={title}
                                             onTestStart={() => handleTestStart(readyToStart)}
+                                            allTests
                                         />
                                     </motion.div>
 
@@ -464,6 +466,32 @@ export function Home() {
                     </div>
                 </div>
                 <Footer />
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    gutter={8}
+                    containerClassName=""
+                    containerStyle={{}}
+                    toastOptions={{
+                        // Define default options
+                        className: '',
+                        duration: 5000,
+                        removeDelay: 1000,
+                        style: {
+                            background: '#363636',
+                            color: '#fff',
+                        },
+
+                        // Default options for specific types
+                        success: {
+                            duration: 3000,
+                            iconTheme: {
+                                primary: 'black',
+                                secondary: 'white',
+                            },
+                        },
+                    }}
+                />
             </>
         )
     }
@@ -600,6 +628,7 @@ export function Home() {
                                                     onHide={() => setModalShow(false)}
                                                     testName={title}
                                                     onTestStart={() => handleTestStart(readyToStart)}
+                                                    allTests
                                                 />
                                             </motion.div>
 
@@ -615,6 +644,32 @@ export function Home() {
                     </div>
                 </div>
                 <Footer />
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    gutter={8}
+                    containerClassName=""
+                    containerStyle={{}}
+                    toastOptions={{
+                        // Define default options
+                        className: '',
+                        duration: 5000,
+                        removeDelay: 1000,
+                        style: {
+                            background: '#363636',
+                            color: '#fff',
+                        },
+
+                        // Default options for specific types
+                        success: {
+                            duration: 3000,
+                            iconTheme: {
+                                primary: 'black',
+                                secondary: 'white',
+                            },
+                        },
+                    }}
+                />
             </>
 
         )

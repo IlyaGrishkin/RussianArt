@@ -198,7 +198,7 @@ function TestScreen(props) {
                 <div className="border-start border-end">
                     <AppNavbar />
                 </div>
-                <div style={{minHeight: "80vh"}} className='container-fluid border-start border-end'>
+                <div style={{minHeight: "80vh"}} className='container-fluid border-start border-end pb-3'>
                     <div className="row d-flex justify-content-center">
                         <div className='col-5 col-sm-4 col-md px-0 d-flex justify-content-center
                          justify-content-md-start'>

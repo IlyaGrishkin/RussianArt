@@ -8,6 +8,7 @@ export function MyVerticallyCenteredModal(props) {
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        backdropClassName={props.allTests ? 'bg-black bg-opacity-50' : ""}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -20,7 +21,7 @@ export function MyVerticallyCenteredModal(props) {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onTestStart}>Да, начать тест</Button>
+          <Button onClick={props.onTestStart} variant='dark'>Да, начать тест</Button>
         </Modal.Footer>
       </Modal>
     );

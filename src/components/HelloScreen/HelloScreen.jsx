@@ -13,6 +13,7 @@ import { MyVerticallyCenteredModal } from '../Modal/Modal';
 import { motion } from "motion/react"
 import { Footer } from '../Footer/Footer'
 import AppNavbar from '../Navbar/Navbar'
+import toast, { Toaster } from 'react-hot-toast'
 
 
 
@@ -132,7 +133,7 @@ export function HelloScreen() {
                 })
                 .catch(resp => {
                     if (resp.response.status == 400) {
-                        alert('Вы уже проходите другой тест. Завершите его, чтобы начать этот.')
+                        toast.error('Вы уже проходите другой тест. Завершите его, чтобы начать этот.')
                     }
                 })
 
@@ -140,7 +141,7 @@ export function HelloScreen() {
 
 
         else {
-            alert("Для прохождения теста необходимо авторизоваться")
+            toast.error("Для прохождения теста необходимо авторизоваться")
         }
     }
 
@@ -172,7 +173,7 @@ export function HelloScreen() {
             </div>
 
             <div className="scrollable-wrap border-bottom border-top">
-                <ScrollableList items={cards} />
+                <ScrollableList items={cards.slice(0, 6)} />
             </div>
 
             <h2 className='text-center my-5'>Проверяйте свои знания</h2>
@@ -262,6 +263,32 @@ export function HelloScreen() {
 
             </div>
             <Footer/>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                    // Define default options
+                    className: '',
+                    duration: 5000,
+                    removeDelay: 1000,
+                    style: {
+                        background: '#363636',
+                        color: '#fff',
+                    },
+
+                    // Default options for specific types
+                    success: {
+                        duration: 3000,
+                        iconTheme: {
+                            primary: 'black',
+                            secondary: 'white',
+                        },
+                    },
+                }}
+            />
         </div>
     )
 }

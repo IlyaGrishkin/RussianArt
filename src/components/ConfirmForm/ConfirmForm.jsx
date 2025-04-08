@@ -3,6 +3,7 @@ import './ConfirmForm.css';
 import axios from 'axios'
 import { Backdrop, CircularProgress } from '@mui/material';
 import { API_URLS, CLIENT_HOST } from '../Utils/constants';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -76,17 +77,17 @@ function ConfirmForm(props) {
                 setNum5("")
                 setNum6("")
                 setInputFocus1()
-                alert('Неверный код')
+                toast.error("Неверный код")
 
 
             })
-    }   
+    }
 
     useEffect(() => {
         if (code.indexOf(-1) == -1) {
             setLoading(true)
             sendData()
-            
+
 
         }
     }, [code])
@@ -247,9 +248,35 @@ function ConfirmForm(props) {
                 sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
                 open={loading}
                 onClick={null}
-                >
+            >
                 <CircularProgress color="inherit" />
             </Backdrop>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                    // Define default options
+                    className: '',
+                    duration: 5000,
+                    removeDelay: 1000,
+                    style: {
+                        background: '#363636',
+                        color: '#fff',
+                    },
+
+                    // Default options for specific types
+                    success: {
+                        duration: 3000,
+                        iconTheme: {
+                            primary: 'black',
+                            secondary: 'white',
+                        },
+                    },
+                }}
+            />
         </div>
     );
 }

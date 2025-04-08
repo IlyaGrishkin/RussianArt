@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Carousel} from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 //import ExampleCarouselImage from 'components/ExampleCarouselImage';
 import './LoginForm.css';
 import axios from 'axios'
@@ -10,6 +10,7 @@ import carousel2 from './carousel2.webp'
 import carousel3 from './carousel3.jpg'
 import AppNavbar from '../Navbar/Navbar';
 import { Footer } from '../Footer/Footer';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
@@ -52,25 +53,25 @@ function LoginForm(props) {
             event.preventDefault()
             localStorage.setItem("userEmail", JSON.stringify(email))
             const apiUrl = API_URLS.GET_SEND_CODE;
-            await axios.post(apiUrl, 
+            await axios.post(apiUrl,
                 {
                     email: email
                 }
             )
-            
-            .then((resp) => {
-            const serverData = resp.data;
-            console.log(serverData)
-            window.location.href = URLS.LOGIN_CHECK;
-            })
-            .catch(resp => {
-                console.log(resp)
-                alert("Произошла ошибка. Проверьте корректность почты и попробуйте еще раз.")
-                setLoading(false)
-            })
-            
-            
-            
+
+                .then((resp) => {
+                    const serverData = resp.data;
+                    console.log(serverData)
+                    window.location.href = URLS.LOGIN_CHECK;
+                })
+                .catch(resp => {
+                    console.log(resp)
+                    toast.error("Произошла ошибка. Проверьте корректность почты и попробуйте еще раз.")
+                    setLoading(false)
+                })
+
+
+
         }
         event.preventDefault()
     }
@@ -78,16 +79,16 @@ function LoginForm(props) {
     return (
         <>
             <div className='border-start border-end'>
-                <AppNavbar/>
-            </div>        
-            <div style={{minHeight: "70vh"}} className='border-start border-end'>
+                <AppNavbar />
+            </div>
+            <div style={{ minHeight: "70vh" }} className='border-start border-end'>
                 <div className='login-form-wrapper m-0 pt-5'>
                     <div className='wrapper'>
                         <div className='form-wrap'>
                             <div className='login-msg'>
                                 <h2>Вход</h2>
                             </div>
-                            
+
                             <form className='login-form' onSubmit={handleSubmit} noValidate={true}>
                                 <label htmlFor="email"><p>Введите свой email</p></label>
                                 <input className="form-control my-2" value={email} onChange={e => handleChange(e)} onBlur={e => handleBlur(e)} id="email"
@@ -99,18 +100,45 @@ function LoginForm(props) {
                                 <p>Нет аккаунта? <a href="/signup/">Зарегистрироваться</a></p>
                             </div>
                         </div>
-                        
+
                     </div>
                     <Backdrop
                         sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
                         open={loading}
                         onClick={null}
-                        >
+                    >
                         <CircularProgress color="inherit" />
                     </Backdrop>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
+
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+                gutter={8}
+                containerClassName=""
+                containerStyle={{}}
+                toastOptions={{
+                    // Define default options
+                    className: '',
+                    duration: 5000,
+                    removeDelay: 1000,
+                    style: {
+                        background: '#363636',
+                        color: '#fff',
+                    },
+
+                    // Default options for specific types
+                    success: {
+                        duration: 3000,
+                        iconTheme: {
+                            primary: 'black',
+                            secondary: 'white',
+                        },
+                    },
+                }}
+            />
         </>
     );
 }
