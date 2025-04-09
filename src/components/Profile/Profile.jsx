@@ -133,11 +133,11 @@ export function Profile() {
                         <h1 className="fw-bold fs-1">Профиль</h1>
                     </div>
                     <div className="row d-flex justify-content-between">
-                        <div className="col-12 col-md-5">
+                        <div className="col-12 col-md-12 col-lg-5">
                             <img style={{width: 100 + "%", borderRadius: 4 + "%"}} src={avatar}/>
                         </div>
 
-                        <div className="col-12 col-md-6 d-flex justify-content-center mt-5 mt-md-3">
+                        <div className="col-12 col-md-12 col-lg-6 d-flex justify-content-start mt-5 mt-md-3">
                             <div style={{overflowX: "auto"}}>
                                 <h2 className="mb-4 fw-bold fs-1">{name}</h2>
                                 <div className="d-flex align-items-center gap-2 mb-3">

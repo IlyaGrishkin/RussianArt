@@ -1,6 +1,6 @@
 import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
-import { API_URLS, SERVER_HOST } from "../Utils/constants";
+import { API_URLS, SERVER_HOST, URLS } from "../Utils/constants";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
@@ -54,9 +54,10 @@ export function ChangeProfile() {
                     const serverData = resp.data;
                     setNewAvatar(SERVER_HOST + serverData.data.picture)
                     localStorage.setItem("avatar", JSON.stringify(SERVER_HOST + serverData.data.picture))
-                    toast.success('Профиль обновлен!')
+                    //toast.success('Профиль обновлен!')
                     console.log(serverData)
                     setLoading(false)
+                    window.location.href = URLS.PROFILE
                 })
                 .catch(resp => {
                     console.log(resp)

@@ -4,6 +4,8 @@ import axios from 'axios'
 import { Backdrop, CircularProgress } from '@mui/material';
 import { API_URLS, CLIENT_HOST } from '../Utils/constants';
 import toast, { Toaster } from 'react-hot-toast';
+import AppNavbar from '../Navbar/Navbar';
+import { Footer } from '../Footer/Footer';
 
 
 
@@ -231,53 +233,59 @@ function ConfirmForm(props) {
 
 
     return (
-        <div className='screen-wrapper'>
-            <div className='info'>
-                <h2>Проверьте свой почтовый ящик</h2>
-                <p>Мы отправили письмо c кодом подтверждения на адрес {userEmail}</p>
+        <>
+            <div className='border-start border-end'>
+                <AppNavbar/>
             </div>
-            <div className='code-wrapper'>
-                <input ref={inputRef1} type="text" class="form-control num-item" value={num1} onChange={e => handleChange(e, '1')} onKeyDown={e => handleKey(e, '1')} pattern="\d+" />
-                <input ref={inputRef2} type="text" class="form-control num-item" value={num2} onChange={e => handleChange(e, '2')} onKeyDown={e => handleKey(e, '2')} pattern="\d+" />
-                <input ref={inputRef3} type="text" class="form-control num-item" value={num3} onChange={e => handleChange(e, '3')} onKeyDown={e => handleKey(e, '3')} pattern="\d+" />
-                <input ref={inputRef4} type="text" class="form-control num-item" value={num4} onChange={e => handleChange(e, '4')} onKeyDown={e => handleKey(e, '4')} pattern="\d+" />
-                <input ref={inputRef5} type="text" class="form-control num-item" value={num5} onChange={e => handleChange(e, '5')} onKeyDown={e => handleKey(e, '5')} pattern="\d+" />
-                <input ref={inputRef6} type="text" class="form-control num-item" value={num6} onChange={e => handleChange(e, '6')} onKeyDown={e => handleKey(e, '6')} pattern="\d+" />
-            </div>
-            <Backdrop
-                sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-                open={loading}
-                onClick={null}
-            >
-                <CircularProgress color="inherit" />
-            </Backdrop>
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
-                gutter={8}
-                containerClassName=""
-                containerStyle={{}}
-                toastOptions={{
-                    // Define default options
-                    className: '',
-                    duration: 5000,
-                    removeDelay: 1000,
-                    style: {
-                        background: '#363636',
-                        color: '#fff',
-                    },
-
-                    // Default options for specific types
-                    success: {
-                        duration: 3000,
-                        iconTheme: {
-                            primary: 'black',
-                            secondary: 'white',
+            <div className='screen-wrapper border-start border-end'>
+                <div className='info'>
+                    <h2>Проверьте свой почтовый ящик</h2>
+                    <p>Мы отправили письмо c кодом подтверждения на адрес {userEmail}</p>
+                </div>
+                <div className='code-wrapper'>
+                    <input ref={inputRef1} type="text" class="form-control num-item" value={num1} onChange={e => handleChange(e, '1')} onKeyDown={e => handleKey(e, '1')} pattern="\d+" />
+                    <input ref={inputRef2} type="text" class="form-control num-item" value={num2} onChange={e => handleChange(e, '2')} onKeyDown={e => handleKey(e, '2')} pattern="\d+" />
+                    <input ref={inputRef3} type="text" class="form-control num-item" value={num3} onChange={e => handleChange(e, '3')} onKeyDown={e => handleKey(e, '3')} pattern="\d+" />
+                    <input ref={inputRef4} type="text" class="form-control num-item" value={num4} onChange={e => handleChange(e, '4')} onKeyDown={e => handleKey(e, '4')} pattern="\d+" />
+                    <input ref={inputRef5} type="text" class="form-control num-item" value={num5} onChange={e => handleChange(e, '5')} onKeyDown={e => handleKey(e, '5')} pattern="\d+" />
+                    <input ref={inputRef6} type="text" class="form-control num-item" value={num6} onChange={e => handleChange(e, '6')} onKeyDown={e => handleKey(e, '6')} pattern="\d+" />
+                </div>
+                <Backdrop
+                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                    open={loading}
+                    onClick={null}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                    gutter={8}
+                    containerClassName=""
+                    containerStyle={{}}
+                    toastOptions={{
+                        // Define default options
+                        className: '',
+                        duration: 5000,
+                        removeDelay: 1000,
+                        style: {
+                            background: '#363636',
+                            color: '#fff',
                         },
-                    },
-                }}
-            />
-        </div>
+
+                        // Default options for specific types
+                        success: {
+                            duration: 3000,
+                            iconTheme: {
+                                primary: 'black',
+                                secondary: 'white',
+                            },
+                        },
+                    }}
+                />
+            </div>
+            <Footer/>
+        </>
     );
 }
 
