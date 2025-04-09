@@ -7,6 +7,9 @@ import { Footer } from "../Footer/Footer";
 import mailImage from './mail.svgz'
 
 
+
+
+
 export function Profile() {
     const [avatar, setAvatar] = useState("")
     const [email, setEmail] = useState("")

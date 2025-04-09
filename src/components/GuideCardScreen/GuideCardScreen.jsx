@@ -2,9 +2,24 @@ import { useEffect, useState } from "react";
 import { GuideCardPreview } from "../GuideCardPreview/GuideCardPreview";
 import axios from "axios";
 import { API_URLS, SERVER_HOST } from "../Utils/constants";
+import AppNavbar from "../Navbar/Navbar";
+import { Footer } from "../Footer/Footer";
+import BasicPagination from "../MuiPagination/MuiPagination";
 
 export function GuideCardScreen(){
     const [data, setData] = useState([])
+    const [cardList, setCardList] = useState([])
+
+    const MAX_CARDS = 4
+    const [page, setPage] = useState(1);
+    const handleChange = (event, value) => {
+        setPage(value);
+        const newTestList = data.slice((MAX_CARDS * value) - MAX_CARDS, MAX_CARDS * value)
+        setCardList(newTestList)
+    };
+
+    const [cardSearch, setCardSearch] = useState("")
+
     useEffect(() => {
         const apiUrl = API_URLS.GET_ALL_CARDS
         axios.get(apiUrl).then((resp) => {
@@ -17,19 +32,36 @@ export function GuideCardScreen(){
         })
     }, [])
     return (
-        <div className="container-fluid">
-            <div className="row d-flex justify-content-center">
-                {data.map(item => 
-                    <div className="col-12 col-lg-5 my-4">
-                    <GuideCardPreview image={SERVER_HOST + item.picture}
-                    title={item.title}
-                    text={item.text}
-                    id={item.id}
-                    />
+        <>
+            <div className="border-start border-end">
+                <AppNavbar/>
+            </div>
+            <div className="container border-start border-end">
+                <div className="ms-3 py-4">
+                    <h2>Поиск</h2>
+                    <div className="d-flex w-50">
+                            <input style={{width: "40%"}} value={cardSearch} onChange={(e) => setCardSearch(e.target.value)} className="form-control" type="text" id="formName"/>
+                            <button className="btn btn-dark ms-2">Найти</button>
+                    </div>
                 </div>
 
-                )} 
+                <div className="row d-flex justify-content-center border-top border-bottom">
+                    {cardList.map(item => 
+                        <div className="col-12 col-md-6 col-lg-4 d-flex justify-content-center my-4">
+                        <GuideCardPreview image={SERVER_HOST + item.picture}
+                        title={item.title}
+                        text={item.text}
+                        id={item.id}
+                        />
+                    </div>
+
+                    )} 
+                </div>
+                <div className='mt-5 pb-4 d-flex justify-content-center'>
+                    <BasicPagination totalCards={data.length} maxCards={MAX_CARDS} page={page} handleChange={handleChange} />
+                </div>
             </div>
-        </div>
+            <Footer/>
+        </>
     )
 }

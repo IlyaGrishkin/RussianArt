@@ -9,10 +9,11 @@ import { StyledBadge } from '../StyledBadge/StyledBadge';
 
 
 
-function AppNavbar() {
+function AppNavbar(props) {
 
   const [avatar, setAvatar] = useState(JSON.parse(localStorage.getItem('avatar')) ? JSON.parse(localStorage.getItem('avatar')) : "")
 
+  
   const [matches, setMatches] = useState(
     window.matchMedia("(min-width: 992px)").matches
   )

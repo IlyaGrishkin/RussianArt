@@ -62,7 +62,7 @@ export function ViewingCard() {
 
 
     function computeVariant(variantID) {
-        let styles = "outline-primary disabled"
+        let styles = "outline-dark disabled"
         if (userAnswers.indexOf(variantID) != -1 && correctAnswers.indexOf(variantID) != -1) {
             styles = "success disabled"
         }

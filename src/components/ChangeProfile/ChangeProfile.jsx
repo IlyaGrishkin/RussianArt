@@ -1,11 +1,12 @@
 import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
-import { API_URLS } from "../Utils/constants";
+import { API_URLS, SERVER_HOST } from "../Utils/constants";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 import { Backdrop, CircularProgress } from "@mui/material";
  
+
 
 export function ChangeProfile() {
 
@@ -13,6 +14,8 @@ export function ChangeProfile() {
     const [secondName, setSecondName] = useState("")
     const [file, setFile] = useState(null)
     const [loading, setLoading] = useState(false)
+
+    const [newAvatar, setNewAvatar] = useState("")
 
     const [matches, setMatches] = useState(
             window.matchMedia("(min-width: 520px)").matches
@@ -49,6 +52,8 @@ export function ChangeProfile() {
 
                 .then((resp) => {
                     const serverData = resp.data;
+                    setNewAvatar(SERVER_HOST + serverData.data.picture)
+                    localStorage.setItem("avatar", JSON.stringify(SERVER_HOST + serverData.data.picture))
                     toast.success('Профиль обновлен!')
                     console.log(serverData)
                     setLoading(false)
@@ -66,7 +71,7 @@ export function ChangeProfile() {
     return (
         <>
             <div className="border-start border-end">
-                <AppNavbar />
+                <AppNavbar newAvatar={newAvatar}/>
             </div>
             <div style={{ minHeight: "80vh" }} className="d-flex w-100 justify-content-center border-start border-end">
                 <form className={matches ? "p-5 border-start border-end" : "p-5"} onSubmit={handleSubmit}>
