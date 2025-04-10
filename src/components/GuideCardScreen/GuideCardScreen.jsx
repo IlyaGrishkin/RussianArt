@@ -27,6 +27,10 @@ export function GuideCardScreen(){
         })
     }, [])
 
+    useEffect(() => {
+        setCardList(data.slice(0, MAX_CARDS))  
+    }, [data])
+
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
         console.log("val", value)
@@ -40,6 +44,7 @@ export function GuideCardScreen(){
         axios.get(apiUrl, {headers: {}, params: {query: cardSearch}})
         .then((resp) => {
             const serverData = resp.data;
+            setData(serverData.data.items)
             console.log(serverData)
         })
         .catch((e) => console.log(e))
@@ -63,7 +68,7 @@ export function GuideCardScreen(){
             <div className="border-start border-end">
                 <AppNavbar/>
             </div>
-            <div className="container border-start border-end">
+            <div className="container border-start border-end" style={{minHeight: "80vh"}}>
                 <div className="d-flex">
                     <div className="row d-flex">
                         <div className="col-12 col-lg-7 col-xl-8 my-4">
@@ -80,6 +85,7 @@ export function GuideCardScreen(){
                                         className="form-control" type="text" id="formName" placeholder="Hазвание карточки"/>
                                         <button className="btn btn-dark m-0 ms-2" onClick={submitSearch}>
                                             <img src={searchImage} width={'20px'} style={{paddingBottom: "2px"}}/></button>
+                                        
                                 </div>
                             </div>
                         </div>
@@ -87,7 +93,7 @@ export function GuideCardScreen(){
                 </div>
 
                 <div className="row d-flex justify-content-center border-top border-bottom">
-                    {cardList.map(item => 
+                    {cardList.length > 0 ? cardList.map(item => 
                         <div className="col-12 col-md-6 col-lg-4 d-flex justify-content-center my-4">
                         <GuideCardPreview image={SERVER_HOST + item.picture}
                         title={item.title}
@@ -96,7 +102,7 @@ export function GuideCardScreen(){
                         />
                     </div>
 
-                    )} 
+                    ) : <h2 className="text-center my-5">Ничего не найдено</h2>} 
                 </div>
                 <div className='mt-5 pb-4 d-flex justify-content-center'>
                     <BasicPagination totalCards={data.length} maxCards={MAX_CARDS} page={page} handleChange={handleChange} />

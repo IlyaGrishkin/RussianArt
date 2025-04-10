@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { SERVER_HOST } from '../components/Utils/constants';
 
 
 async function getData() {

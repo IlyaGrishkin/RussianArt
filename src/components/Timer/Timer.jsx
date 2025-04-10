@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Timer.css';
+import { URLS } from '../Utils/constants';
 
 
  
@@ -17,7 +18,7 @@ function Timer(props) {
         }, []);
 
     if (!localStorage.getItem("testTime")) {
-        localStorage.setItem("testTime", 10000)
+        localStorage.setItem("testTime", 0)
     }
 
     const startTime = localStorage.getItem("testTime")
@@ -48,6 +49,7 @@ function Timer(props) {
         if (time <= 0) {
             props.finishTest()
             props.onTimeout()
+            window.location.href = URLS.TEST_RESULT
         }
         setTimeout(countdown, 1000)
     }, [time])

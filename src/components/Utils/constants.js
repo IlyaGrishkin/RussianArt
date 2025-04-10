@@ -55,7 +55,7 @@ export const topics = {
 export const URLS = {
     HOME: "http://localhost:3000",
     FINISH_TEST: "",
-    TEST_RESULT: "http://localhost:3000/0/results/",
+    TEST_RESULT: "http://localhost:3000/results/",
     LOGIN_CHECK: "http://localhost:3000/login/check/",
     SIGNUP: "http://localhost:3000/signup/",
     SIGNUP_CONFIRM: "http://localhost:3000/signup/confirm/",
