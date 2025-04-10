@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Home.css'
 import { Checkbox, ConfigProvider } from 'antd'
-import { API_URLS, BootstrapBreakpoints, questionsNumber, questionsNumberStrToNum, startTest, testDurations, testDurationsStrToNums, topics } from '../Utils/constants'
+import { API_URLS, BootstrapBreakpoints, questionsNumber, questionsNumberStrToNum, SERVER_HOST, startTest, testDurations, testDurationsStrToNums, topics } from '../Utils/constants'
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Card } from 'react-bootstrap';
@@ -330,10 +330,18 @@ export function Home() {
                                 </div>
                             </div>
                             <div className="row mb-2">
-                                <div className="col-12 d-flex justify-content-center">
-                                    <Button variant="dark" onClick={handleShow} className='w-50'>
-                                        Фильтр
-                                    </Button>
+                                <div className="col-12 d-flex justify-content-center border-top border-bottom">
+                                    <div className='col-8 my-4 border-end'>
+                                        <h1 className='fs-2 m-0 text-center'>
+                                             Решайте наши разнообразные тесты и становитесь эрудированнее
+                                        </h1>
+                                    </div>
+                                    <div className='col-4 d-flex align-items-center justify-content-center'>
+                                        <Button variant="dark" onClick={handleShow} className='w-50'>
+                                            Фильтр
+                                        </Button>
+                                    </div>
+                                
 
                                     <Offcanvas show={show} onHide={handleClose}>
                                         <Offcanvas.Header closeButton className='border-bottom' style={{ backgroundColor: "#F3EEE8" }}>
@@ -419,8 +427,8 @@ export function Home() {
                                             transition: { duration: 0.1 }
                                         }}
                                     >
-                                        <Card className="card mb-4 home-card-wrap p-0" style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 410 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
-                                            <Card.Img variant="top" style={{ height: "200px" }} src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
+                                        <Card className="card mb-4 home-card-wrap p-0" style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 425 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
+                                            <Card.Img variant="top" style={{ height: "200px" }} src={test.picture ? SERVER_HOST + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
                                             <Card.Body>
                                                 <Card.Title className='card-title'>{test.title}</Card.Title>
                                                 <Card.Text style={{ overflow: "hidden" }}>
@@ -428,12 +436,12 @@ export function Home() {
                                                 </Card.Text>
                                                 <Card.Text>
                                                     <div className='timeInfo d-flex'>
-                                                        <p>Время: {test.work_time} мин</p>
+                                                        <p className='fw-bold'>Время: {test.work_time} мин</p>
                                                         <img src={timeImage} width={20 + 'px'} className='pb-3 mx-2' />
                                                     </div>
 
                                                     <div className='questionsInfo d-flex'>
-                                                        <p>Количество вопросов: {test.question_count}</p>
+                                                        <p className='fw-bold'>Количество вопросов: {test.question_count}</p>
                                                         <img src={quantityImg} width={20 + 'px'} className='pb-3 mx-2' />
                                                     </div>
 
@@ -607,12 +615,12 @@ export function Home() {
                                                         </Card.Text>
                                                         <Card.Text>
                                                             <div className='timeInfo d-flex'>
-                                                                <p>Время: {test.work_time} мин</p>
+                                                                <p className='fw-bold'>Время: {test.work_time} мин</p>
                                                                 <img src={timeImage} width={20 + 'px'} className='pb-3 mx-2' />
                                                             </div>
 
                                                             <div className='questionsInfo d-flex'>
-                                                                <p>Количество вопросов: {test.question_count}</p>
+                                                                <p className='fw-bold'>Количество вопросов: {test.question_count}</p>
                                                                 <img src={quantityImg} width={20 + 'px'} className='pb-3 mx-2' />
                                                             </div>
 

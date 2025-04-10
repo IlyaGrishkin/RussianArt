@@ -5,9 +5,10 @@ import { API_URLS, SERVER_HOST } from "../Utils/constants";
 import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import BasicPagination from "../MuiPagination/MuiPagination";
+import searchImage from './search.svg'
 
 export function GuideCardScreen(){
-    const MAX_CARDS = 4
+    const MAX_CARDS = 6
     const [data, setData] = useState([])
     const [cardList, setCardList] = useState([])
 
@@ -44,17 +45,44 @@ export function GuideCardScreen(){
         .catch((e) => console.log(e))
     }
 
+
+    const [matches, setMatches] = useState(
+            window.matchMedia("(min-width: 993px)").matches
+        )
+    
+        useEffect(() => {
+            window
+                .matchMedia("(min-width: 993px)")
+                .addEventListener('change', e => setMatches(e.matches));
+        }, []);
+
+    const borderClass = matches ? "border-start" : "border-top"
+
     return (
         <>
             <div className="border-start border-end">
                 <AppNavbar/>
             </div>
             <div className="container border-start border-end">
-                <div className="ms-3 py-4">
-                    <h2>Поиск</h2>
-                    <div className="d-flex w-50">
-                            <input style={{width: "40%"}} value={cardSearch} onChange={(e) => setCardSearch(e.target.value)} className="form-control" type="text" id="formName"/>
-                            <button className="btn btn-dark ms-2" onClick={submitSearch}>Найти</button>
+                <div className="d-flex">
+                    <div className="row d-flex">
+                        <div className="col-12 col-lg-7 col-xl-8 my-4">
+                            <h1 className="ms-3 fs-1 fw-bold text-center">Узнавайте новое с нашими Гайд-карточками</h1>
+                        </div>
+                        <div className={`col-12 col-lg-5 col-xl-4  px-0 d-flex justify-content-center align-items-center ${borderClass} my-4`}>
+                            <div>
+                                <div className="d-flex align-items-center mb-2 mt-3">
+                                    <div className="rounded-circle" style={{ width: "14px", height: "14px", backgroundColor: 'black' }}></div>
+                                    <h2 className="ps-2 m-0">Поиск</h2>
+                                </div>
+                                <div className="d-flex">
+                                        <input style={{width: "80%"}} value={cardSearch} onChange={(e) => setCardSearch(e.target.value)} 
+                                        className="form-control" type="text" id="formName" placeholder="Hазвание карточки"/>
+                                        <button className="btn btn-dark m-0 ms-2" onClick={submitSearch}>
+                                            <img src={searchImage} width={'20px'} style={{paddingBottom: "2px"}}/></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

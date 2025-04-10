@@ -3,7 +3,7 @@ import axios from 'axios'
 
 async function getData() {
     const refreshToken = JSON.parse(localStorage.getItem("refreshToken"))
-    const apiUrl = `http://localhost:8000/api/v1/customers/refresh`;
+    const apiUrl = `${SERVER_HOST}/api/v1/customers/refresh`;
     await axios.post(apiUrl,
         {
             refresh_token: refreshToken
