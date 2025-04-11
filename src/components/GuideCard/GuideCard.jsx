@@ -19,16 +19,31 @@ export function GuideCard(props) {
             console.log(resp)
         })
     }, [])
+
+    const [matches, setMatches] = useState(
+        window.matchMedia("(min-width: 850px)").matches
+    )
+
+    useEffect(() => {
+        window
+            .matchMedia("(min-width: 850px)")
+            .addEventListener('change', e => setMatches(e.matches));
+    }, []);
+
     return (
         <>
             <div className="border-start border-end">
                 <AppNavbar/>
             </div>        
             <div className="container border-start border-end px-5" style={{minHeight: "80vh"}}>
-                <h1 className="my-0 py-2 fst-italic">{data.subject}</h1>
-                <img src={SERVER_HOST + data.picture} className="w-100 px"/>
-                <h3 className="m-0 mt-3">{data.title}</h3>
-                <p className="my-0 pb-5 mt-2">{data.text}</p>
+             
+                <h1 className="my-0 py-4 fst-italic text-center fs-2">{data.subject}</h1>
+                <div className="d-flex justify-content-center">
+                    <img src={SERVER_HOST + data.picture} className={matches ? "w-75" : "w-100"}/>
+                </div>
+                <h3 className="m-0 mt-3 text-center fw-bold">{data.title}</h3>
+                <p className="my-0 pb-5 mt-2 text-center">{data.text}</p>
+                
             </div>
             <Footer/>
         </>

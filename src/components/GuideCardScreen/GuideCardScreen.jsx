@@ -6,13 +6,17 @@ import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import BasicPagination from "../MuiPagination/MuiPagination";
 import searchImage from './search.svg'
+import crossImage from './Cross.svg'
 
 export function GuideCardScreen(){
     const MAX_CARDS = 6
+    const [allCards, setAllCards] = useState([])
     const [data, setData] = useState([])
     const [cardList, setCardList] = useState([])
 
     const [cardSearch, setCardSearch] = useState("")
+
+    const [filter, setFilter] = useState(false)
 
     useEffect(() => {
         const apiUrl = API_URLS.GET_ALL_CARDS
@@ -20,6 +24,7 @@ export function GuideCardScreen(){
             const serverData = resp.data;
             console.log(serverData)
             setData(serverData.data.items)
+            setAllCards(serverData.data.items)
             setCardList(serverData.data.items.slice(0, MAX_CARDS))
         })
         .catch(resp => {
@@ -45,6 +50,7 @@ export function GuideCardScreen(){
         .then((resp) => {
             const serverData = resp.data;
             setData(serverData.data.items)
+            setFilter(true)
             console.log(serverData)
         })
         .catch((e) => console.log(e))
@@ -85,6 +91,10 @@ export function GuideCardScreen(){
                                         className="form-control" type="text" id="formName" placeholder="Hазвание карточки"/>
                                         <button className="btn btn-dark m-0 ms-2" onClick={submitSearch}>
                                             <img src={searchImage} width={'20px'} style={{paddingBottom: "2px"}}/></button>
+                                        {filter && <button className="btn btn-dark ms-2"
+                                onClick={() => {setFilter(false); setData(allCards); setCardSearch("")}}>
+                                    <img width={'20px'} style={{paddingBottom: "2px"}} src={crossImage} alt="" />
+                                    </button>}
                                         
                                 </div>
                             </div>

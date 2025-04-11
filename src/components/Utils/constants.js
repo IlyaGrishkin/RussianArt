@@ -1,10 +1,6 @@
 import axios from "axios";
  
 
-
-
-
-
 export const testDurations = ['0-5', '5-10', '10-15', '15-30']
 export const testDurationsStrToNums = {
     '0-5': [0, 1, 2, 3, 4],
@@ -53,17 +49,17 @@ export const topics = {
 
 
 export const URLS = {
-    HOME: "http://localhost:3000",
+    HOME: `${CLIENT_HOST}`,
     FINISH_TEST: "",
-    TEST_RESULT: "http://localhost:3000/results/",
-    LOGIN_CHECK: "http://localhost:3000/login/check/",
-    SIGNUP: "http://localhost:3000/signup/",
-    SIGNUP_CONFIRM: "http://localhost:3000/signup/confirm/",
-    GUIDE_CARDS: "http://localhost:3000/guide-cards/",
-    ALL_TESTS: "http://localhost:3000/tests/",
-    LOGOUT: "http://localhost:3000/logout/",
-    CHANGE_PROFILE: "http://localhost:3000/profile/change/",
-    PROFILE: "http://localhost:3000/profile/"
+    TEST_RESULT: `${CLIENT_HOST}/results/`,
+    LOGIN_CHECK: `${CLIENT_HOST}/login/check/`,
+    SIGNUP: `${CLIENT_HOST}/signup/`,
+    SIGNUP_CONFIRM: `${CLIENT_HOST}/signup/confirm/`,
+    GUIDE_CARDS: `${CLIENT_HOST}/guide-cards/`,
+    ALL_TESTS: `${CLIENT_HOST}/tests/`,
+    LOGOUT: `${CLIENT_HOST}/logout/`,
+    CHANGE_PROFILE: `${CLIENT_HOST}/profile/change/`,
+    PROFILE: `${CLIENT_HOST}/profile/`
 }
 
 
@@ -95,11 +91,11 @@ export function getUserAttempts(testID) {
 
 
 export function startTest(testID) {
-    return `http://localhost:3000/card/${testID}/1/`
+    return `${CLIENT_HOST}/card/${testID}/1/`
 }
 
 export function getTestResult() {
-    return `http://localhost:3000/results/`
+    return `${CLIENT_HOST}/results/`
 }
 
 export function getGuideCardData(ID) {
@@ -107,7 +103,7 @@ export function getGuideCardData(ID) {
 }
 
 export function getGuideCard(ID) {
-    return `http://localhost:3000/guide-card/${ID}/`
+    return `${CLIENT_HOST}/guide-card/${ID}/`
 }
 
 export function getTest(testID){
@@ -115,9 +111,9 @@ export function getTest(testID){
 }
 
 export function nextQuestion(testID, id) {
-    return `http://localhost:3000/card/${testID}/${parseInt(id) + 1}/`
+    return `${CLIENT_HOST}/card/${testID}/${parseInt(id) + 1}/`
 }
 
 export function goToQuestion(testID, id) {
-    return `http://localhost:3000/card/${testID}/${parseInt(id)}/`
+    return `${CLIENT_HOST}/card/${testID}/${parseInt(id)}/`
 }

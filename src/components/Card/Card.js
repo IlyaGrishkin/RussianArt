@@ -76,11 +76,12 @@ function AppCard(props) {
                     {
                         questionsQuantity == id ?
                             <>
-                                <Button onClick={() => { props.sendAnswers() }} className="w-50 me-1" variant='outline-success' >Сохранить</Button>
-                                <Button onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50 ms-1" variant='success' >Завершить тест</Button>
+                                <Button style={{color: "white"}} onClick={() => { props.sendAnswers() }} className="w-50 me-1 my-test-card" variant=' ' >Сохранить</Button>
+                                <Button style={{color: "white"}} onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50 ms-1 my-test-card" variant=' ' >Завершить тест</Button>
                             </>
                             :
-                            <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}} className="w-100" variant='success' >Далее</Button>
+                            <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}}
+                             className="w-100 my-test-card">Далее</Button>
                     }
 
 

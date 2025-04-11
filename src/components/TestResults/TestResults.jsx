@@ -49,7 +49,7 @@ export function TestResults() {
                 console.log(current)
                 setResult(`${current.total_score}/${current.question_count}`)
                 setTestName(current.test_title)
-                setTimeSpent(current.time_spent)
+                setTimeSpent(current.time_spent.split('.')[0])
                 setAttemptID(current.attempt_id)
                 
 

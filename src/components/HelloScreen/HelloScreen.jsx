@@ -133,6 +133,7 @@ export function HelloScreen() {
                 })
                 .catch(resp => {
                     if (resp.response.status == 400) {
+                        console.log("err-resp", resp)
                         toast.error('Вы уже проходите другой тест. Завершите его, чтобы начать этот.')
                     }
                 })

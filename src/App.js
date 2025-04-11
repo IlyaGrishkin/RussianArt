@@ -21,6 +21,7 @@ import { GuideCardScreen } from './components/GuideCardScreen/GuideCardScreen';
 import { API_URLS } from './components/Utils/constants';
 import { GuideCard } from './components/GuideCard/GuideCard';
 import { ChangeProfile } from './components/ChangeProfile/ChangeProfile';
+import { AboutScreen } from './components/About/About';
 
 
 
@@ -55,7 +56,7 @@ const App = () => {
           <Route path='/guide-cards/' element={<GuideCardScreen/>}/>
           <Route path='/guide-card/:id/' element={<GuideCard/>}/> 
 
-
+          <Route path='/about/' element={<AboutScreen/>}/> 
 
 
         </Routes>

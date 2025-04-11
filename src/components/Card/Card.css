@@ -1,0 +1,22 @@
+.my-test-card {
+    background-color: #4ac945;
+    border-color: #4ac945;
+    transition: 0.2s;
+}
+
+.my-test-card-disabled {
+    background-color: #25b52599;
+    border-color: #25b52599;
+    transition: 0.2s;
+}
+
+.my-test-card:hover {
+    background-color: #4ac945;
+    border-color: #4ac945;
+    opacity: 0.85;
+}
+
+.my-test-card:active {
+    background-color: #4ac945 !important; 
+    border-color: #4ac945 !important;
+}

@@ -85,7 +85,8 @@ export function Profile() {
         let newObj = {}
         newObj.result = <a href={`/viewing/${obj.attempt_id}/1/`}>{`${obj.total_score}/${obj.question_count}`}</a>
         newObj.test = obj.test_title
-        newObj.timeSpent = obj.time_spent
+        console.log(obj.time_spent)
+        newObj.timeSpent = obj.time_spent.split('.')[0]
         const date = new Date(obj.end_time)   
         newObj.endTime = `${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${String(date.getMonth()).length == 1 ? "0" + String(date.getMonth() + 1) : parseInt(date.getMonth()) + 1}.${date.getFullYear()}`
         dataSource.push(newObj)

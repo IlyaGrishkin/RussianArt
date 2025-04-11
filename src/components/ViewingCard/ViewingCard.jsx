@@ -128,8 +128,8 @@ export function ViewingCard() {
 
                                 <Card.Body style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                     {id == questionQuantity ?
-                                        <Button onClick={() => { localStorage.removeItem("viewingData") }} className="w-50" variant='outline-success' href={`/`}>Завершить просмотр</Button>
-                                        : <Button className="w-50" variant='outline-success' href={`/viewing/${attemptID}/${parseInt(id) + 1}/`}>Далее</Button>}
+                                        <Button onClick={() => { localStorage.removeItem("viewingData") }} style={{color: "white"}} className="w-50 my-test-card" variant=' ' href={`/`}>Завершить просмотр</Button>
+                                        : <Button style={{color: "white"}} className="w-50 my-test-card" variant='' href={`/viewing/${attemptID}/${parseInt(id) + 1}/`}>Далее</Button>}
                                 </Card.Body>
                             </div>
 
