@@ -114,6 +114,11 @@ export function nextQuestion(testID, id) {
     return `${CLIENT_HOST}/card/${testID}/${parseInt(id) + 1}/`
 }
 
+export function prevQuestion(testID, id) {
+    return `${CLIENT_HOST}/card/${testID}/${parseInt(id) - 1}/`
+}
+
+
 export function goToQuestion(testID, id) {
     return `${CLIENT_HOST}/card/${testID}/${parseInt(id)}/`
 }

@@ -1,22 +1,56 @@
 .my-test-card {
-    background-color: #4ac945;
-    border-color: #4ac945;
+    background-color: #99BC85;
+    border-color: #99BC85;
     transition: 0.2s;
 }
 
 .my-test-card-disabled {
-    background-color: #25b52599;
-    border-color: #25b52599;
+    background-color: #62884c !important;
+    border-color: #62884c !important;
+    color: white !important;
+    cursor: default !important;
     transition: 0.2s;
 }
 
+
+
+.my-test-card-disabled-outline {
+    background-color: white !important;
+    color: #62884c!important;
+    border-color: #62884c !important;
+    cursor: default !important;
+    transition: 0.2s;
+}
+
+.my-test-card-danger {
+    background-color: #dc6755 !important;
+    color: white !important;
+    border-color: #dc6755 !important;
+}
+
+
+
+.logout-btn {
+    background-color: #dc6755 !important;
+    color: white !important;
+    border-color: #dc6755 !important;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    opacity: 0.85;
+}
+
+
+
+
 .my-test-card:hover {
-    background-color: #4ac945;
-    border-color: #4ac945;
+    background-color: #99BC85;
+    border-color: #99BC85;
     opacity: 0.85;
 }
 
 .my-test-card:active {
-    background-color: #4ac945 !important; 
-    border-color: #4ac945 !important;
+    background-color: #99BC85 !important; 
+    border-color: #99BC85 !important;
 }

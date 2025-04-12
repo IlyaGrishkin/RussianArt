@@ -39,7 +39,7 @@ export function ChangeProfile() {
             }))
             formData.append("image", file)
             const apiUrl = API_URLS.UPDATE_PROFILE;
-            await axios.post(apiUrl,
+            await axios.patch(apiUrl,
                 formData,
                 {
                     headers: {

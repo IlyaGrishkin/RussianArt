@@ -51,7 +51,7 @@ export function Profile() {
             setNoToken(true)
         }
         
-    }, [])
+    }, [runningTest])
 
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("accessToken"))) {
@@ -69,6 +69,9 @@ export function Profile() {
                 const serverData = resp.data;
                 console.log('running test', serverData)
                 setRunningTest(serverData.data.test_id)
+                const testTime = Math.floor(new Date(serverData.data.start_time).getTime() / 1000)
+                localStorage.setItem("testTime", JSON.stringify(testTime))
+
             })
             .catch(resp => {
                 console.log(resp)
@@ -85,8 +88,7 @@ export function Profile() {
         let newObj = {}
         newObj.result = <a href={`/viewing/${obj.attempt_id}/1/`}>{`${obj.total_score}/${obj.question_count}`}</a>
         newObj.test = obj.test_title
-        console.log(obj.time_spent)
-        newObj.timeSpent = obj.time_spent.split('.')[0]
+        newObj.timeSpent = obj.time_spent?.split('.')[0]
         const date = new Date(obj.end_time)   
         newObj.endTime = `${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${String(date.getMonth()).length == 1 ? "0" + String(date.getMonth() + 1) : parseInt(date.getMonth()) + 1}.${date.getFullYear()}`
         dataSource.push(newObj)
@@ -148,9 +150,9 @@ export function Profile() {
                                 <h5 className="fw-bold mb-3">Дата регистрации: {regDate}</h5>
                                 <div className="d-flex align-items-center">
                                     <button className="btn btn-dark" onClick={() => window.location.href = URLS.CHANGE_PROFILE}>Редактировать профиль</button>
-                                    <button className="btn btn-danger ms-2" onClick={() => window.location.href = URLS.LOGOUT}>Выйти из аккаунта</button>
+                                    <button className="btn logout-btn ms-2" onClick={() => window.location.href = URLS.LOGOUT}>Выйти из аккаунта</button>
                                 </div>
-                                {runningTest && <button className="btn btn-success d-block mt-3" onClick={()=>{}}>Продожить попытку</button>}
+                                {runningTest && <button className="btn btn-success d-block mt-3" onClick={()=>{window.location.href = startTest(runningTest)}}>Продожить попытку</button>}
                             </div>
                         </div>
                     </div>

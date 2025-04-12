@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, ListGroup, Button } from 'react-bootstrap';
-import axios from 'axios'
-import { API_URLS, getTestResult, nextQuestion, SERVER_HOST, URLS } from '../Utils/constants'
+import { getTestResult, nextQuestion, prevQuestion, SERVER_HOST } from '../Utils/constants'
 import './Card.css';
 
 
@@ -76,12 +75,20 @@ function AppCard(props) {
                     {
                         questionsQuantity == id ?
                             <>
-                                <Button style={{color: "white"}} onClick={() => { props.sendAnswers() }} className="w-50 me-1 my-test-card" variant=' ' >Сохранить</Button>
-                                <Button style={{color: "white"}} onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }} className="w-50 ms-1 my-test-card" variant=' ' >Завершить тест</Button>
+                                {parseInt(id) - 1 ? <Button onClick={() => { props.sendAnswers();  window.location.href = prevQuestion(testID, id)}}
+                                    className="w-50 my-test-card me-1">Назад</Button> : <></>}
+                                <Button style={{color: "white"}} onClick={() => { props.sendAnswers(); props.finishTest(); window.location.href = getTestResult(testID) }}
+                                 className="w-50 ms-1 my-test-card" variant=' ' >Завершить тест</Button>
                             </>
                             :
-                            <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}}
-                             className="w-100 my-test-card">Далее</Button>
+                            
+                            <>
+                                {parseInt(id) - 1 ? <Button onClick={() => { props.sendAnswers();  window.location.href = prevQuestion(testID, id)}}
+                                    className="w-50 my-test-card me-1">Назад</Button> : <></>}
+                                <Button onClick={() => { props.sendAnswers();  window.location.href = nextQuestion(testID, id)}}
+                                    className="w-50 my-test-card ms-1">Далее</Button>
+                            </>   
+                             
                     }
 
 

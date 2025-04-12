@@ -118,7 +118,7 @@ export function HelloScreen() {
                 .then((resp) => {
                     const serverData = resp.data;
                     console.log('create', serverData)
-                    localStorage.setItem("testTime", Math.floor(new Date(serverData.data.created_at).getTime() / 1000))
+                    localStorage.setItem("testTime", Math.floor(new Date(serverData.data.created_at).getTime() / 1000) - 5)
                     localStorage.setItem("answers", JSON.stringify(serverData.data.user_answers))
                     let test;
                     for (let item of testList) {

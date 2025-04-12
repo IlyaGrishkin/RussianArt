@@ -5,10 +5,11 @@ import { API_URLS, SERVER_HOST } from "../Utils/constants";
 import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import BasicPagination from "../MuiPagination/MuiPagination";
+import { motion } from "motion/react"
 import searchImage from './search.svg'
 import crossImage from './Cross.svg'
 
-export function GuideCardScreen(){
+export function GuideCardScreen() {
     const MAX_CARDS = 6
     const [allCards, setAllCards] = useState([])
     const [data, setData] = useState([])
@@ -27,13 +28,13 @@ export function GuideCardScreen(){
             setAllCards(serverData.data.items)
             setCardList(serverData.data.items.slice(0, MAX_CARDS))
         })
-        .catch(resp => {
-            console.log(resp)
-        })
+            .catch(resp => {
+                console.log(resp)
+            })
     }, [])
 
     useEffect(() => {
-        setCardList(data.slice(0, MAX_CARDS))  
+        setCardList(data.slice(0, MAX_CARDS))
     }, [data])
 
     const [page, setPage] = useState(1);
@@ -46,35 +47,35 @@ export function GuideCardScreen(){
 
     function submitSearch() {
         const apiUrl = API_URLS.SEARCH_CARD
-        axios.get(apiUrl, {headers: {}, params: {query: cardSearch}})
-        .then((resp) => {
-            const serverData = resp.data;
-            setData(serverData.data.items)
-            setFilter(true)
-            console.log(serverData)
-        })
-        .catch((e) => console.log(e))
+        axios.get(apiUrl, { headers: {}, params: { query: cardSearch } })
+            .then((resp) => {
+                const serverData = resp.data;
+                setData(serverData.data.items)
+                setFilter(true)
+                console.log(serverData)
+            })
+            .catch((e) => console.log(e))
     }
 
 
     const [matches, setMatches] = useState(
-            window.matchMedia("(min-width: 993px)").matches
-        )
-    
-        useEffect(() => {
-            window
-                .matchMedia("(min-width: 993px)")
-                .addEventListener('change', e => setMatches(e.matches));
-        }, []);
+        window.matchMedia("(min-width: 993px)").matches
+    )
+
+    useEffect(() => {
+        window
+            .matchMedia("(min-width: 993px)")
+            .addEventListener('change', e => setMatches(e.matches));
+    }, []);
 
     const borderClass = matches ? "border-start" : "border-top"
 
     return (
         <>
             <div className="border-start border-end">
-                <AppNavbar/>
+                <AppNavbar />
             </div>
-            <div className="container border-start border-end" style={{minHeight: "80vh"}}>
+            <div className="container border-start border-end" style={{ minHeight: "80vh" }}>
                 <div className="d-flex">
                     <div className="row d-flex">
                         <div className="col-12 col-lg-7 col-xl-8 my-4">
@@ -87,15 +88,15 @@ export function GuideCardScreen(){
                                     <h2 className="ps-2 m-0">Поиск</h2>
                                 </div>
                                 <div className="d-flex">
-                                        <input style={{width: "80%"}} value={cardSearch} onChange={(e) => setCardSearch(e.target.value)} 
-                                        className="form-control" type="text" id="formName" placeholder="Hазвание карточки"/>
-                                        <button className="btn btn-dark m-0 ms-2" onClick={submitSearch}>
-                                            <img src={searchImage} width={'20px'} style={{paddingBottom: "2px"}}/></button>
-                                        {filter && <button className="btn btn-dark ms-2"
-                                onClick={() => {setFilter(false); setData(allCards); setCardSearch("")}}>
-                                    <img width={'20px'} style={{paddingBottom: "2px"}} src={crossImage} alt="" />
+                                    <input style={{ width: "80%" }} value={cardSearch} onChange={(e) => setCardSearch(e.target.value)}
+                                        className="form-control" type="text" id="formName" placeholder="Hазвание карточки" />
+                                    <button className="btn btn-dark m-0 ms-2" onClick={submitSearch}>
+                                        <img src={searchImage} width={'20px'} style={{ paddingBottom: "2px" }} /></button>
+                                    {filter && <button className="btn btn-dark ms-2"
+                                        onClick={() => { setFilter(false); setData(allCards); setCardSearch("") }}>
+                                        <img width={'20px'} style={{ paddingBottom: "2px" }} src={crossImage} alt="" />
                                     </button>}
-                                        
+
                                 </div>
                             </div>
                         </div>
@@ -103,22 +104,40 @@ export function GuideCardScreen(){
                 </div>
 
                 <div className="row d-flex justify-content-center border-top border-bottom">
-                    {cardList.length > 0 ? cardList.map(item => 
+                    {cardList.length > 0 ? cardList.map(item =>
                         <div className="col-12 col-md-6 col-lg-4 d-flex justify-content-center my-4">
-                        <GuideCardPreview image={SERVER_HOST + item.picture}
-                        title={item.title}
-                        text={item.text}
-                        id={item.id}
-                        />
-                    </div>
 
-                    ) : <h2 className="text-center my-5">Ничего не найдено</h2>} 
+                            <motion.div
+                                initial={
+                                    {
+                                        y: 100,
+                                        opacity: 0
+                                    }
+                                }
+                                animate={
+                                    {
+                                        y: 0,
+                                        opacity: 1,
+                                        transition: { duration: 0.5 }
+                                    }}
+                            >
+
+
+                                <GuideCardPreview image={SERVER_HOST + item.picture}
+                                    title={item.title}
+                                    text={item.text}
+                                    id={item.id}
+                                />
+                            </motion.div>
+                        </div>
+
+                    ) : <h2 className="text-center my-5">Ничего не найдено</h2>}
                 </div>
                 <div className='mt-5 pb-4 d-flex justify-content-center'>
                     <BasicPagination totalCards={data.length} maxCards={MAX_CARDS} page={page} handleChange={handleChange} />
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }
