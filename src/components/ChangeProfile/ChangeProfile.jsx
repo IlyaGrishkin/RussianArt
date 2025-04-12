@@ -10,8 +10,10 @@ import { Backdrop, CircularProgress } from "@mui/material";
 
 export function ChangeProfile() {
 
-    const [name, setName] = useState("")
-    const [secondName, setSecondName] = useState("")
+    const [name, setName] = useState(JSON.parse(localStorage.getItem("userName")) ?
+     JSON.parse(localStorage.getItem("userName")) : "")
+    const [secondName, setSecondName] = useState(JSON.parse(localStorage.getItem("userLastName")) ?
+    JSON.parse(localStorage.getItem("userLastName")) : "")
     const [file, setFile] = useState(null)
     const [loading, setLoading] = useState(false)
 
@@ -27,6 +29,7 @@ export function ChangeProfile() {
                 .addEventListener('change', e => setMatches(e.matches));
         }, []);
     
+
 
     async function handleSubmit(event) {
         if (JSON.parse(localStorage.getItem("accessToken"))) {

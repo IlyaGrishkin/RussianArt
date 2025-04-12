@@ -7,6 +7,7 @@ import { API_URLS, SERVER_HOST } from '../Utils/constants';
 import axios from 'axios';
 import { motion } from "motion/react"
 import navigationImage from './navigation1.svg'
+import greyImage from './grey.webp'
 import AppNavbar from '../Navbar/Navbar';
 import { Footer } from '../Footer/Footer';
 import './ViewingCard.css'
@@ -140,7 +141,7 @@ export function ViewingCard() {
                             <Card className='my-3'  >
 
                                 <div>
-                                    <Card.Img variant="top" src={pictureURL ? SERVER_HOST + pictureURL : "https://avatars.mds.yandex.net/i?id=dc7cbd3877e56749ab41a0fcc5145434_l-5231880-images-thumbs&n=13"} />
+                                    <Card.Img variant="top" src={pictureURL ? SERVER_HOST + pictureURL : greyImage} />
                                     <Card.Body>
                                         <Card.Title>{ }</Card.Title>
                                         <Card.Text>

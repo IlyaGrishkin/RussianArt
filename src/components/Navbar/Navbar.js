@@ -95,7 +95,7 @@ function AppNavbar(props) {
     
       <Navbar expand={'lg'} className="bg-transparent border-bottom">
           <Container fluid>
-            <Navbar.Brand className='my-navbar-brand ps-3'>Русское искусство <br/> и наследие</Navbar.Brand>
+            <Navbar.Brand className='my-navbar-brand ps-3' href='/'>Русское искусство <br/> и наследие</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${'lg'}`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${'lg'}`}

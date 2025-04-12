@@ -1,13 +1,15 @@
-import { getGuideCard } from "../Utils/constants"
+import { getGuideCard, SERVER_HOST } from "../Utils/constants"
 import "./GuideCardPreview.css"
+import greyImage from './grey.webp'
 
 
 export function GuideCardPreview(props) {
     let text = props.text
+    console.log(props.image)
     return (
         <div className="p-0 m-0 guide-card-preview">
  
-            <img width={"300px"} height={"180px"} src={props.image} alt="" className="guide-card-img" />
+            <img width={"300px"} height={"180px"} src={props.image != SERVER_HOST ? props.image : greyImage} alt="" className="guide-card-img" />
    
             <div className="m-0 guide-card-preview-body px-3 py-3" style={{overflow: 'hidden'}}>
                 <h4>{props.title}</h4>

@@ -5,6 +5,7 @@ import { API_URLS, SERVER_HOST, startTest, URLS } from "../Utils/constants";
 import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import mailImage from './mail.svgz'
+import { json } from "react-router-dom";
 
 
 
@@ -41,6 +42,11 @@ export function Profile() {
                 setRegDate(`${date.getDate().toString().length == 1 ? '0' + date.getDate().toString() : date.getDate()}.${String(date.getMonth()).length == 1 ? "0" + String(date.getMonth() + 1) : parseInt(date.getMonth()) + 1}.${date.getFullYear()}`)
                 setName(serverData.data.user_name)
                 setTestList(serverData.data.user_attempts.slice(0, 10))
+                const spl = serverData.data.user_name.split(' ')
+                const first_name = spl[0]
+                const last_name = spl[1]
+                localStorage.setItem('userName', JSON.stringify(first_name))
+                localStorage.setItem("userLastName", JSON.stringify(last_name))
             })
             .catch(resp => {
                 console.log(resp)
@@ -51,7 +57,7 @@ export function Profile() {
             setNoToken(true)
         }
         
-    }, [runningTest])
+    }, [])
 
     useEffect(() => {
         if (JSON.parse(localStorage.getItem("accessToken"))) {
@@ -137,7 +143,7 @@ export function Profile() {
                     </div>
                     <div className="row d-flex justify-content-between">
                         <div className="col-12 col-md-12 col-lg-5">
-                            <img style={{width: 100 + "%", borderRadius: 4 + "%"}} src={avatar}/>
+                            <img style={{width: 100 + "%", borderRadius: 4 + "%"}} src={avatar ? avatar : "https://dentist.ee/wp-content/uploads/2024/08/Untitled.png"}/>
                         </div>
 
                         <div className="col-12 col-md-12 col-lg-6 d-flex justify-content-start mt-5 mt-md-3">
@@ -152,7 +158,7 @@ export function Profile() {
                                     <button className="btn btn-dark" onClick={() => window.location.href = URLS.CHANGE_PROFILE}>Редактировать профиль</button>
                                     <button className="btn logout-btn ms-2" onClick={() => window.location.href = URLS.LOGOUT}>Выйти из аккаунта</button>
                                 </div>
-                                {runningTest && <button className="btn btn-success d-block mt-3" onClick={()=>{window.location.href = startTest(runningTest)}}>Продожить попытку</button>}
+                                {runningTest && <button style={{color: 'white'}} className="btn my-test-card d-block mt-3" onClick={()=>{window.location.href = startTest(runningTest)}}>Продожить попытку</button>}
                             </div>
                         </div>
                     </div>

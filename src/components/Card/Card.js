@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, ListGroup, Button } from 'react-bootstrap';
 import { getTestResult, nextQuestion, prevQuestion, SERVER_HOST } from '../Utils/constants'
+import greyImage from './grey.webp'
 import './Card.css';
 
 
@@ -52,7 +53,7 @@ function AppCard(props) {
     return (
         <Card style={{width: matches ? '100%' : '100%'}} className='my-1 my-md-3'>
             <div className=''>
-                <Card.Img variant="top" src={props.picture ? SERVER_HOST + props.picture : "https://avatars.mds.yandex.net/i?id=dc7cbd3877e56749ab41a0fcc5145434_l-5231880-images-thumbs&n=13"} />
+                <Card.Img variant="top" src={props.picture ? SERVER_HOST + props.picture : greyImage} />
                 <Card.Body>
                     <Card.Title>{ }</Card.Title>
                     <Card.Text>
