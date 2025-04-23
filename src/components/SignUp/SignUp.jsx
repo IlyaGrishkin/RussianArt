@@ -85,7 +85,7 @@ export function SignUp() {
             
             .then((resp) => {
             const serverData = resp.data;
-            console.log(serverData)
+            
             
             localStorage.setItem("userEmail", JSON.stringify(email))
             localStorage.setItem("userFirstName", JSON.stringify(firstName))

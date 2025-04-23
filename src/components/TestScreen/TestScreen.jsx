@@ -70,7 +70,7 @@ function TestScreen(props) {
             localStorage.setItem("serverData", JSON.stringify(serverData))
         })
             .catch(resp => {
-                console.log(resp)
+                
             })
     }
 
@@ -96,10 +96,10 @@ function TestScreen(props) {
                 const ans = serverData.data.user_answers;
                 setUserAnswers(ans)
                 setActive(ans[id] ? ans[id] : [])
-                console.log('getActual', serverData);
+                
             })
             .catch(resp => {
-                console.log(resp)
+                
                 if (resp.response.status == 400) {
                     window.location.href = URLS.TEST_RESULT
                 }
@@ -141,18 +141,18 @@ function TestScreen(props) {
         )
 
             .then((resp) => {
-                console.log("finishTest")
-                console.log(resp.data);
+                
+                
             })
             .catch(resp => {
-                console.log(resp)
+                
             })
 
     }
 
     function sendAnswers() {
         const answers = userAnswers
-        console.log(answers)
+        
         const apiUrl = API_URLS.UPDATE_TEST;
         let config = {
             headers: {
@@ -170,11 +170,11 @@ function TestScreen(props) {
 
             .then((resp) => {
                 const serverData = resp.data;
-                console.log(serverData);
+                
                 //localStorage.setItem("timeStart", JSON.stringify(parseInt((new Date(serverData.data.created_at).getTime() / 1000).toFixed(0))))
             })
             .catch((resp) => {
-                console.log(resp)
+                
                 if (resp.response.status == 400) {
                     window.location.href = URLS.TEST_RESULT
                 }

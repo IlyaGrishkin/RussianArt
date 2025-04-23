@@ -21,7 +21,7 @@ async function getData() {
             localStorage.setItem('expires', JSON.stringify(expires))
         })
         .catch(resp => {
-            console.log(resp)
+            
         })
 }
 

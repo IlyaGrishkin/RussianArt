@@ -12,11 +12,11 @@ export function GuideCard(props) {
         const apiUrl = getGuideCardData(id)
         axios.get(apiUrl).then((resp) => {
             const serverData = resp.data;
-            console.log(serverData)
+            
             setData(serverData.data)
         })
         .catch(resp => {
-            console.log(resp)
+            
         })
     }, [])
 
@@ -37,12 +37,13 @@ export function GuideCard(props) {
             </div>        
             <div className="container border-start border-end px-5" style={{minHeight: "80vh"}}>
              
-                <h1 className="my-0 py-4 fst-italic text-center fs-2">{data.subject}</h1>
+                <h1 className="my-0 py-0 pt-3 fst-italic text-center fs-2">{data.subject}</h1>
+                <h3 className="m-0 mt-3 mb-2 text-center fw-bold">{data.title}</h3>
                 <div className="d-flex justify-content-center">
                     <img src={SERVER_HOST + data.picture} className={matches ? "w-75" : "w-100"}/>
                 </div>
-                <h3 className="m-0 mt-3 text-center fw-bold">{data.title}</h3>
-                <p className="my-0 pb-5 mt-2 text-center">{data.text}</p>
+                
+                <p style={{wordWrap: "break-word"}} className="my-0 pb-5 mt-2 text-center">{data.text}</p>
                 
             </div>
             <Footer/>

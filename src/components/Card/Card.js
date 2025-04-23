@@ -8,6 +8,12 @@ import './Card.css';
 
 
 function AppCard(props) {
+    function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+           (navigator.maxTouchPoints > 0) ||
+           (navigator.msMaxTouchPoints > 0));
+      }
+
     const [matches, setMatches] = useState(
         window.matchMedia("(min-width: 992px)").matches
     )
@@ -38,9 +44,9 @@ function AppCard(props) {
             newActive.push(pos);
         }
         let ans = Object.assign({}, userAnswers)
-        console.log('before', ans)
+        
         ans[questionId] = newActive.slice();
-        console.log('ans', ans)
+        
         props.setActive(newActive)
         props.setAnswers(ans)
     }
@@ -56,18 +62,25 @@ function AppCard(props) {
                 <Card.Img variant="top" src={props.picture ? SERVER_HOST + props.picture : greyImage} />
                 <Card.Body>
                     <Card.Title>{ }</Card.Title>
-                    <Card.Text>
+                    <p className='m-0 p-0'>
                         <h5>{id}. {props.question.title}</h5>
-                    </Card.Text>
+                    </p>
                 </Card.Body>
 
                 <ListGroup className="list-group-flush">
                     {variants.map((variant) => (
-                        <ListGroup.Item>
+                        <ListGroup.Item>{
+                            isTouchDevice() ? 
+                            <button className={(active.indexOf(variant.id) != -1) ? "btn w-100 card-variant-button-active"
+                             : "btn w-100 card-variant-button"}
+                                onClick={() => { addAnswer(id, variant.id); }}>{variant.text}
+                            </button>
+                            :
                             <Button className="w-100"
                                 variant={(active.indexOf(variant.id) != -1) ? "dark" : "outline-dark"}
                                 onClick={() => { addAnswer(id, variant.id); }}>{variant.text}
                             </Button>
+                            }
                         </ListGroup.Item>
                     ))}
                 </ListGroup>

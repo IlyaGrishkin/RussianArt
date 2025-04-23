@@ -41,7 +41,7 @@ function ConfirmForm(props) {
     async function sendData() {
         let s = code.join("");
         const email = JSON.parse(localStorage.getItem('userEmail'))
-        console.log(email)
+        
         const apiUrl = props.apiUrl ? props.apiUrl : API_URLS.GET_CONFIRM
         const defaultData = {
             email: email,
@@ -59,7 +59,7 @@ function ConfirmForm(props) {
 
             .then((resp) => {
                 const serverData = resp.data;
-                console.log(serverData)
+                
                 const accessToken = serverData.data.access_token
                 const refreshToken = serverData.data.refresh_token
                 const expires = serverData.data.expires_in
@@ -69,7 +69,7 @@ function ConfirmForm(props) {
                 window.location.href = CLIENT_HOST
             })
             .catch(e => {
-                console.log(e)
+                
                 setLoading(false)
                 setCode([-1, -1, -1, -1, -1, -1])
                 setNum1("")

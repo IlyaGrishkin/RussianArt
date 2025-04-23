@@ -23,13 +23,13 @@ export function GuideCardScreen() {
         const apiUrl = API_URLS.GET_ALL_CARDS
         axios.get(apiUrl).then((resp) => {
             const serverData = resp.data;
-            console.log(serverData)
+            
             setData(serverData.data.items)
             setAllCards(serverData.data.items)
             setCardList(serverData.data.items.slice(0, MAX_CARDS))
         })
             .catch(resp => {
-                console.log(resp)
+                
             })
     }, [])
 
@@ -39,7 +39,7 @@ export function GuideCardScreen() {
 
     const [page, setPage] = useState(1);
     const handleChange = (event, value) => {
-        console.log("val", value)
+        
         setPage(value);
         const newTestList = data.slice((MAX_CARDS * value) - MAX_CARDS, MAX_CARDS * value)
         setCardList(newTestList)
@@ -52,9 +52,9 @@ export function GuideCardScreen() {
                 const serverData = resp.data;
                 setData(serverData.data.items)
                 setFilter(true)
-                console.log(serverData)
+                
             })
-            .catch((e) => console.log(e))
+            .catch((e) => {})
     }
 
 

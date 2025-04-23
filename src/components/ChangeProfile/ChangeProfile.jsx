@@ -58,12 +58,12 @@ export function ChangeProfile() {
                     setNewAvatar(SERVER_HOST + serverData.data.picture)
                     localStorage.setItem("avatar", JSON.stringify(SERVER_HOST + serverData.data.picture))
                     //toast.success('Профиль обновлен!')
-                    console.log(serverData)
+                    
                     setLoading(false)
                     window.location.href = URLS.PROFILE
                 })
                 .catch(resp => {
-                    console.log(resp)
+                    
                     toast.error("Произошла ошибка. Проверьте корректность данных и попробуйте еще раз.")
                     setLoading(false)
                 })

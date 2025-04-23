@@ -1,6 +1,5 @@
 import './HelloScreen.css'
 import churchImage from './church.jpg'
-import archImage from './museum.svg'
 import { ScrollableList } from '../Scroller/Scroller'
 import { GuideCardPreview } from '../GuideCardPreview/GuideCardPreview'
 import { API_URLS, SERVER_HOST, startTest, URLS } from '../Utils/constants'
@@ -42,7 +41,7 @@ export function HelloScreen() {
     useEffect(() => {
         axios.get(apiUrl).then((resp) => {
             const serverData = resp.data;
-            console.log(serverData)
+            
 
 
             const tests = serverData.data.items
@@ -54,7 +53,7 @@ export function HelloScreen() {
             setShownTestList(testList.slice(0, MAX_CARDS))
         })
             .catch(resp => {
-                console.log(resp)
+                
             })
     }, [])
 
@@ -77,19 +76,19 @@ export function HelloScreen() {
             const apiUrl = API_URLS.GET_ALL_CARDS
             axios.get(apiUrl).then((resp) => {
                 const serverData = resp.data;
-                console.log(serverData)
+                
                 let cards = serverData.data.items
                 let showCards = cards.map((item) => 
                     <GuideCardPreview borderRadius={"12px"} height={200} width={320} image={SERVER_HOST + item.picture}
                     title={item.title} text={item.text} id={item.id}/>
                 )
                 
-                console.log('showCards', showCards)
+                
                 items.push(...showCards)
                 setCards(items)
             })
             .catch(resp => {
-                console.log(resp)
+                
             })
         }, [])
 
@@ -100,7 +99,7 @@ export function HelloScreen() {
 
     function handleTestStart(testID) {
         if (JSON.parse(localStorage.getItem("accessToken"))) {
-            console.log(testID)
+            
             const apiUrl = API_URLS.CREATE_TEST;
             let config = {
                 headers: {
@@ -117,7 +116,7 @@ export function HelloScreen() {
 
                 .then((resp) => {
                     const serverData = resp.data;
-                    console.log('create', serverData)
+                    
                     localStorage.setItem("testTime", Math.floor(new Date(serverData.data.created_at).getTime() / 1000))
                     localStorage.setItem("answers", JSON.stringify(serverData.data.user_answers))
                     let test;
@@ -133,7 +132,7 @@ export function HelloScreen() {
                 })
                 .catch(resp => {
                     if (resp.response.status == 400) {
-                        console.log("err-resp", resp)
+                        
                         toast.error('Вы уже проходите другой тест. Завершите его, чтобы начать этот.')
                     }
                 })
@@ -149,7 +148,7 @@ export function HelloScreen() {
 
     const normalStyle = "col-12 col-lg-12 col-xl-10 col-xxl-9 d-flex  pt-4 border-top"
 
-    console.log(items)
+    
 
     return (
         <div className="container">
@@ -168,7 +167,7 @@ export function HelloScreen() {
                 </div>
              
 
-                <img className='w-100 px-5' src={churchImage} alt="" />
+                <img className='w-100 px-2 px-md-5' src={churchImage} alt="" />
 
                 <h2 className='text-center my-5'> <span className=''>ПОЛУЧАЙТЕ ЗНАНИЯ</span> <br /> и <span className='font-spectral'>ОТКРЫВАЙТЕ НОВОЕ</span> <br /> с нашими карточками</h2>
             </div>
@@ -213,7 +212,7 @@ export function HelloScreen() {
                                         </span>
                                     </div>
                                     <Card className={matches ? "card mb-4 home-card-wrap p-0" + " h-100" : "card mb-4 home-card-wrap p-0 h-75"} style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 480 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
-                                        <Card.Img variant="top" src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
+                                        <Card.Img variant="top" src={test.picture ? SERVER_HOST + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
                                         <Card.Body>
                                             <Card.Title className='card-title'>{test.title}</Card.Title>
                                             <Card.Text>

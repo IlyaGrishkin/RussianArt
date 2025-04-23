@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
 import './Navbar.css'
 import { Avatar } from '@mui/material';
@@ -44,14 +44,14 @@ function AppNavbar(props) {
 
         .then(resp => {
           const serverData = resp.data;
-          console.log(serverData)
+          
           localStorage.setItem("avatar", JSON.stringify(SERVER_HOST + serverData.data.avatar_path))
           setAvatar(SERVER_HOST + serverData.data.avatar_path)
            
           
         })
         .catch(e => {
-          console.log(e)
+          
         })
       
       
@@ -71,7 +71,7 @@ function AppNavbar(props) {
         axios.get(apiUrl, config).then((resp) => {
             const serverData = resp.data;
             setShowBadge(true)
-            console.log('run', serverData)
+            
             })
 
     .catch(resp => {})
@@ -104,7 +104,7 @@ function AppNavbar(props) {
               
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${'lg'}`}>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${'lg'}`} className='fw-bold'>
                    Навигация
                 </Offcanvas.Title>
               </Offcanvas.Header>

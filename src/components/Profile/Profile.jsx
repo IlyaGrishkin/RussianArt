@@ -5,7 +5,7 @@ import { API_URLS, SERVER_HOST, startTest, URLS } from "../Utils/constants";
 import AppNavbar from "../Navbar/Navbar";
 import { Footer } from "../Footer/Footer";
 import mailImage from './mail.svgz'
-import { json } from "react-router-dom";
+ 
 
 
 
@@ -35,7 +35,7 @@ export function Profile() {
             )
             .then(resp => {
                 const serverData = resp.data;
-                console.log(serverData)
+                
                 setAvatar(SERVER_HOST + serverData.data.avatar_path)
                 setEmail(serverData.data.user_email)
                 const date = new Date(serverData.data.user_created_at)
@@ -49,7 +49,7 @@ export function Profile() {
                 localStorage.setItem("userLastName", JSON.stringify(last_name))
             })
             .catch(resp => {
-                console.log(resp)
+                
             })
 
             }
@@ -73,14 +73,14 @@ export function Profile() {
             )
             .then(resp => {
                 const serverData = resp.data;
-                console.log('running test', serverData)
+                
                 setRunningTest(serverData.data.test_id)
                 const testTime = Math.floor(new Date(serverData.data.start_time).getTime() / 1000)
                 localStorage.setItem("testTime", JSON.stringify(testTime))
 
             })
             .catch(resp => {
-                console.log(resp)
+                
             })
 
             }

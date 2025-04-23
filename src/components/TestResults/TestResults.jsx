@@ -45,8 +45,8 @@ export function TestResults() {
             .then((resp) => {
                 const serverData = resp.data;
                 const current = serverData.data.user_attempts[0]
-                console.log(serverData.data.user_attempts)
-                console.log(current)
+                
+                
                 setResult(`${current.total_score}/${current.question_count}`)
                 setTestName(current.test_title)
                 setTimeSpent(current.time_spent.split('.')[0])

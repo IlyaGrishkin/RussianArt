@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel } from 'react-bootstrap';
-//import ExampleCarouselImage from 'components/ExampleCarouselImage';
 import './LoginForm.css';
 import axios from 'axios'
 import { Backdrop, CircularProgress } from '@mui/material';
 import { API_URLS, URLS } from '../Utils/constants';
-import carousel1 from './carousel1.jpg'
-import carousel2 from './carousel2.webp'
-import carousel3 from './carousel3.jpg'
 import AppNavbar from '../Navbar/Navbar';
 import { Footer } from '../Footer/Footer';
 import toast, { Toaster } from 'react-hot-toast';
@@ -61,11 +56,11 @@ function LoginForm(props) {
 
                 .then((resp) => {
                     const serverData = resp.data;
-                    console.log(serverData)
+                    
                     window.location.href = URLS.LOGIN_CHECK;
                 })
                 .catch(resp => {
-                    console.log(resp)
+                    
                     toast.error("Произошла ошибка. Проверьте корректность почты и попробуйте еще раз.")
                     setLoading(false)
                 })

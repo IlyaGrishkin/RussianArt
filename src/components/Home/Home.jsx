@@ -239,7 +239,7 @@ export function Home() {
     useEffect(() => {
         axios.get(apiUrl).then((resp) => {
             const serverData = resp.data;
-            console.log(serverData)
+            
             setTests(serverData)
 
 
@@ -255,7 +255,7 @@ export function Home() {
             setAllTests(serverData.data.items)
         })
             .catch(resp => {
-                console.log(resp)
+                
             })
     }, [])
 
@@ -264,7 +264,7 @@ export function Home() {
 
     function handleTestStart(testID) {
         if (JSON.parse(localStorage.getItem("accessToken"))) {
-            console.log(testID)
+            
             const apiUrl = API_URLS.CREATE_TEST;
             let config = {
                 headers: {
@@ -281,7 +281,7 @@ export function Home() {
 
                 .then((resp) => {
                     const serverData = resp.data;
-                    console.log('create', serverData)
+                    
                     localStorage.setItem("testTime", Math.floor(new Date(serverData.data.created_at).getTime() / 1000))
                     localStorage.setItem("answers", JSON.stringify(serverData.data.user_answers))
                     let test;
@@ -337,7 +337,7 @@ export function Home() {
                                         </h1>
                                     </div>
                                     <div className='col-4 d-flex align-items-center justify-content-center'>
-                                        <Button variant="dark" onClick={handleShow} className='w-50'>
+                                        <Button variant="dark" onClick={handleShow} className=''>
                                             Фильтр
                                         </Button>
                                     </div>
@@ -607,7 +607,7 @@ export function Home() {
                                                 }}
                                             >
                                                 <Card className="card mb-4 home-card-wrap p-0" style={{ cursor: "pointer", maxWidth: '24rem', margin: 0, height: 410 + 'px' }} onClick={() => { setTitle(test.title); setModalShow(true); setReadyToStart(test.id) }}>
-                                                    <Card.Img variant="top" style={{ height: "200px" }} src={test.picture ? "http://127.0.0.1:8000" + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
+                                                    <Card.Img variant="top" style={{ height: "200px" }} src={test.picture ? SERVER_HOST + test.picture : "https://dev-education.apkpro.ru/media/news_image/e0d1d096-0f66-4cc9-a181-5cf9b2f27d9f.jpg"} />
                                                     <Card.Body>
                                                         <Card.Title className='card-title'>{test.title}</Card.Title>
                                                         <Card.Text style={{ overflow: "hidden" }}>

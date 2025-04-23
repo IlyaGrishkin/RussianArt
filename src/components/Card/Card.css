@@ -16,8 +16,9 @@
 
 .my-test-card-disabled-outline {
     background-color: white !important;
-    color: #62884c!important;
-    border-color: #62884c !important;
+    color: #389c3d!important;
+    border-color: #389c3d!important;
+    font-weight: 700;
     cursor: default !important;
     transition: 0.2s;
 }
@@ -27,7 +28,6 @@
     color: white !important;
     border-color: #dc6755 !important;
 }
-
 
 
 .logout-btn {
@@ -53,4 +53,22 @@
 .my-test-card:active {
     background-color: #99BC85 !important; 
     border-color: #99BC85 !important;
+}
+
+.card-variant-button {
+    color: #212529;
+    border-color: #212529;
+}
+
+@media (hover: none) {
+    .card-variant-button:hover { 
+        color: #212529 !important;
+        border-color: #212529 !important;
+    }
+  }
+
+.card-variant-button-active {
+    background-color: #212529 !important;
+    border-color: #212529 !important;
+    color: white !important;
 }

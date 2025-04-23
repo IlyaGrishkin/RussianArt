@@ -5,7 +5,7 @@ import greyImage from './grey.webp'
 
 export function GuideCardPreview(props) {
     let text = props.text
-    console.log(props.image)
+    
     return (
         <div className="p-0 m-0 guide-card-preview">
  

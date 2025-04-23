@@ -47,7 +47,7 @@ export function ViewingCard() {
                 .then((resp) => {
                     const serverData = resp.data;
                     localStorage.setItem("viewingData", JSON.stringify(serverData.data))
-                    console.log(serverData)
+                    
                     setQuestionQuantity(serverData.data.question_list.length)
 
                     const currentQuestion = serverData.data.question_list[parseInt(id) - 1]
@@ -57,11 +57,11 @@ export function ViewingCard() {
 
                     setCorrectAnswers(serverData.data.correct_answers[id])
                     setUserAnswers(serverData.data.user_answers[id])
-                    console.log(serverData.data.user_answers)
+                    
 
                 })
                 .catch(resp => {
-                    console.log(resp)
+                    
                 })
         }
         else {
@@ -76,7 +76,7 @@ export function ViewingCard() {
             setUserAnswers(viewingData.user_answers[id])
         }
 
-    })
+    }, [])
 
 
     function computeVariant(variantID) {
@@ -94,8 +94,8 @@ export function ViewingCard() {
 
     }
 
-    console.log(userAnswers)
-    console.log(correctAnswers)
+    
+    
 
     return (
         <>
